@@ -652,6 +652,7 @@
         <module>client/resteasy</module>
         <module>client/webservices</module>
         <module>security</module>
+        <module>webservice</module>
     </modules>
 
 </project>

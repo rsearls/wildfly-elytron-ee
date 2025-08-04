@@ -32,7 +32,7 @@
 
     <artifactId>webservice</artifactId>
     <packaging>pom</packaging>
-    
+
     <name>WildFly Elytron - Webservice</name>
     <description>Elytron SOAP/SAML Webservice support</description>
 
@@ -40,6 +40,7 @@
         <module>common</module>
         <module>config</module>
         <module>federation</module>
+        <module>jbossws</module>
     </modules>
 
   <!-- rls   <dependencyManagement> -->

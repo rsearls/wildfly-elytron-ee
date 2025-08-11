@@ -33,6 +33,7 @@ import org.picketlink.trust.jbossws.SAML2Constants;
 import org.picketlink.trust.jbossws.Util;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.wildfly.security.authz.Roles;
 
 import javax.security.auth.Subject;
 import javax.xml.namespace.QName;
@@ -40,7 +41,7 @@ import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.handler.soap.SOAPMessageContext;
 import java.security.Principal;
-import java.security.acl.Group;
+//rls import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,8 +113,12 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
                 List<String> roles = AssertionUtil.getRoles(assertionType, roleKeys);
                 if (roles.size() > 0) {
                     logger.trace("Roles in the assertion: " + roles);
+                    /** rls
                     Group roleGroup = SecurityActions.group(roles);
-                    theSubject.getPrincipals().add(roleGroup);
+                    **/
+                    for (String role : roles) {
+                        theSubject.getPrincipals().add(new Roles(role));
+                    }
                 } else {
                     logger.trace("Did not find roles in the assertion");
                 }

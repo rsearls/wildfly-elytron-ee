@@ -24,11 +24,14 @@ package org.picketlink.trust.jbossws.handler;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.cxf.security.SecurityContext;
 import org.picketlink.identity.federation.core.wstrust.SamlCredential;
+import org.wildfly.security.authz.Roles;
 
 import javax.security.auth.Subject;
 import java.security.Principal;
+/** rls
 import java.security.acl.Group;
 import java.util.Enumeration;
+**/
 
 /**
  * <p>implementation for {@link AbstractSAML2Handler} specific for the JBoss AS7 binding.</p>
@@ -68,9 +71,18 @@ public class SAML2Handler extends AbstractSAML2Handler {
                 if (theSubject == null || theSubject.getPrincipals().size() <= 1) {
                     return false;
                 }
+                /** rls
                 for (Principal principal : theSubject.getPrincipals()) {
                     if (principal instanceof Group && checkGroup((Group) principal, role)) {
                         return true;
+                    }
+                }
+                **/
+                for (Principal principal : theSubject.getPrincipals()) {
+                    if (principal instanceof Roles) {
+                        if (((Roles)principal).contains(role)) {
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -82,6 +94,7 @@ public class SAML2Handler extends AbstractSAML2Handler {
         };
     }
 
+    /** rls
     protected boolean checkGroup(Group group, String role) {
         if (group.getName().equals(role)) {
             return true;
@@ -96,4 +109,5 @@ public class SAML2Handler extends AbstractSAML2Handler {
         }
         return false;
     }
+    **/
 }

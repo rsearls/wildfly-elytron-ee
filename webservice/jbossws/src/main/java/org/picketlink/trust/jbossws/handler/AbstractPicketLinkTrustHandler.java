@@ -65,10 +65,10 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
     protected static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
 
     protected static Set<QName> headers;
-
+    /** rls
     protected static final String SEC_MGR_LOOKUP = "java:jboss/jaas/"; // rls SecurityConstants.JAAS_CONTEXT_ROOT;
     protected static final String AUTHZ_MGR_LOOKUP = "java:comp/env/security/authorizationMgr";
-
+    **/
     private String securityDomainName;
 
     static {

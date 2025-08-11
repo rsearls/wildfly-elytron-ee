@@ -30,10 +30,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jbossws</artifactId>
+    <artifactId>test</artifactId>
 
-    <name>WildFly Elytron - Webservice Federation</name>
-    <description>Webservice SOAP/SAML interceptors</description>
+    <name>WildFly Elytron - Webservice test</name>
+    <description>Webservice SOAP/SAML poc</description>
 
     <dependencies>
     <!-- rls 
@@ -119,6 +119,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.logmanager</groupId>
+            <artifactId>jboss-logmanager</artifactId>
+            <version>2.1.19.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.slf4j</groupId>
+            <artifactId>slf4j-jboss-logmanager</artifactId>
+            <version>1.2.0.Final</version>
+        </dependency>
+        <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>opensaml-core</artifactId>
             <version>4.0.1</version>
@@ -126,16 +136,6 @@
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>opensaml-saml-impl</artifactId>
-            <version>4.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.opensaml</groupId>
-            <artifactId>opensaml-xmlsec-api</artifactId>
-            <version>4.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.opensaml</groupId>
-            <artifactId>opensaml-xmlsec-impl</artifactId>
             <version>4.0.1</version>
         </dependency>
     </dependencies>

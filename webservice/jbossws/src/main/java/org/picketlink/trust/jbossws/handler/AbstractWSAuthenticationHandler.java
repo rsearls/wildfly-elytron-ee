@@ -31,7 +31,7 @@ import org.picketlink.common.ErrorCodes;
 import org.picketlink.common.exceptions.ConfigurationException;
 
 import javax.security.auth.Subject;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.MessageContext;
 import java.security.Principal;
 import java.util.Iterator;
 

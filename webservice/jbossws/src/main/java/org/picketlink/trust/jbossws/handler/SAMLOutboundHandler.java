@@ -22,7 +22,7 @@
 
 package org.picketlink.trust.jbossws.handler;
 
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.MessageContext;
 
 /**
  * <p>{@link SAML2Handler} implementation to handle only outbound messages.</p>

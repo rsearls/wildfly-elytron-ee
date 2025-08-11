@@ -41,6 +41,7 @@
         <module>config</module>
         <module>federation</module>
         <module>jbossws</module>
+        <module>test</module>
     </modules>
 
   <!-- rls   <dependencyManagement> -->

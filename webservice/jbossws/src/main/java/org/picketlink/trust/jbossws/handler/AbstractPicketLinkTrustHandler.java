@@ -25,9 +25,9 @@ package org.picketlink.trust.jbossws.handler;
 import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;
-import org.picketlink.common.exceptions.ProcessingException;
+//rls import org.picketlink.common.exceptions.ProcessingException;
 import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
-import org.picketlink.identity.federation.core.wstrust.SamlCredential;
+//rls import org.picketlink.identity.federation.core.wstrust.SamlCredential;
 import org.picketlink.trust.jbossws.Constants;
 import org.picketlink.trust.jbossws.Util;
 import org.w3c.dom.Document;
@@ -38,7 +38,7 @@ import org.w3c.dom.NodeList;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.security.auth.Subject;
+//rls import javax.security.auth.Subject;
 import jakarta.servlet.ServletContext;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.handler.LogicalMessageContext;
@@ -203,6 +203,7 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
      */
     protected Element getAssertionFromSubject() {
         Element assertion = null;
+        /** rls TODO replace
         Subject subject = SecurityActions.getAuthenticatedSubject();
 
         if (subject == null) {
@@ -224,6 +225,7 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
                 }
             }
         }
+        **/
         return assertion;
     }
 

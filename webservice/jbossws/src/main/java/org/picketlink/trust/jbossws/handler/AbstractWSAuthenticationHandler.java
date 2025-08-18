@@ -21,6 +21,7 @@
  */
 package org.picketlink.trust.jbossws.handler;
 
+/** rls
 import org.jboss.security.AuthenticationManager;
 import org.jboss.security.SecurityConstants;
 import org.jboss.security.SecurityContext;
@@ -29,11 +30,19 @@ import org.jboss.security.identity.Identity;
 import org.jboss.security.identity.extensions.CredentialIdentity;
 import org.picketlink.common.ErrorCodes;
 import org.picketlink.common.exceptions.ConfigurationException;
+ **/
 
+import io.undertow.security.api.SecurityContext;
+import io.undertow.servlet.spec.HttpServletRequestImpl;
+import io.undertow.server.HttpServerExchange;
+
+/** rls
+import jakarta.servlet.http.HttpServletRequest;
 import javax.security.auth.Subject;
-import jakarta.xml.ws.handler.MessageContext;
 import java.security.Principal;
 import java.util.Iterator;
+**/
+import jakarta.xml.ws.handler.MessageContext;
 
 /**
  * <p>Base class to perform Authentication for POJO Web Services based on the Authorize Operation on the JBossWS Native stack.</p>
@@ -55,6 +64,25 @@ public abstract class AbstractWSAuthenticationHandler extends AbstractPicketLink
 
         trace(msgContext);
 
+        // Get object to authenticate user
+        HttpServletRequestImpl ctx = (HttpServletRequestImpl)msgContext.get("HTTP.REQUEST");
+        HttpServerExchange exch = ctx.getExchange();
+
+        /* rls NOTE:
+        // Must add module, org.wildfly.security.elytron-web.undertow-server-servlet, to
+        // jboss-deployment-structure.xml in WAR file in order to have access to this class
+        // ServletSecurityContextImpl servletSecurityCtx = (ServletSecurityContextImpl)exch.getSecurityContext();
+        // SecurityContextImpl sContextImpl = (SecurityContextImpl)exch.getSecurityContext();
+        */
+        SecurityContext securityCtx = exch.getSecurityContext();
+
+        /* TODO
+            check for authentication.
+         */
+
+
+
+        /** rls
         AuthenticationManager authenticationManager = null;
 
         try {
@@ -89,7 +117,7 @@ public abstract class AbstractWSAuthenticationHandler extends AbstractPicketLink
 
         SecurityContext sc = SecurityActions.createSecurityContext(principal, credential, subject);
         SecurityActions.setSecurityContext(sc);
-
+        **/
         return true;
     }
 
@@ -102,9 +130,11 @@ public abstract class AbstractWSAuthenticationHandler extends AbstractPicketLink
      *
      * @throws ConfigurationException
      */
+    /** rls
     protected AuthenticationManager getAuthenticationManager(MessageContext msgContext) throws ConfigurationException {
         String securityDomainName = getSecurityDomainName(msgContext);
 
         return (AuthenticationManager) lookupJNDI(SecurityConstants.JAAS_CONTEXT_ROOT + securityDomainName);
     }
+    **/
 }

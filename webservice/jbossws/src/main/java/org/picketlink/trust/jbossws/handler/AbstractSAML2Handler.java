@@ -21,20 +21,33 @@
  */
 package org.picketlink.trust.jbossws.handler;
 
-import org.jboss.security.SecurityContext;
+//rls import org.jboss.security.SecurityContext;
 import org.picketlink.common.constants.JBossSAMLURIConstants;
 import org.picketlink.common.util.StringUtil;
-import org.picketlink.identity.federation.bindings.jboss.subject.PicketLinkPrincipal;
+//rls import org.picketlink.identity.federation.bindings.jboss.subject.PicketLinkPrincipal;
 import org.picketlink.identity.federation.core.saml.v2.util.AssertionUtil;
 import org.picketlink.identity.federation.core.wstrust.SamlCredential;
-import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
-import org.picketlink.identity.federation.saml.v2.assertion.AssertionType;
+//rls import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
+//rls import org.picketlink.identity.federation.saml.v2.assertion.AssertionType;
 import org.picketlink.trust.jbossws.SAML2Constants;
 import org.picketlink.trust.jbossws.Util;
+
+import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
+import org.opensaml.core.xml.io.Unmarshaller;
+import org.opensaml.core.xml.io.UnmarshallerFactory;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.core.xml.config.XMLObjectProviderRegistry;
+import org.opensaml.core.config.ConfigurationService;
+import org.opensaml.core.config.InitializationService;
+import org.opensaml.core.config.InitializationException;
+
+//rls import org.wildfly.security.authz.Roles;
+import org.wildfly.security.auth.principal.NamePrincipal;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.wildfly.security.authz.Roles;
 
+// rls import org.jboss.security.SubjectInfo;
 import javax.security.auth.Subject;
 import javax.xml.namespace.QName;
 import jakarta.xml.soap.SOAPMessage;
@@ -58,12 +71,30 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
 
     // The system property key that can be set to determine the keys under which the roles may be in the assertion
     public static final String ROLE_KEY_SYS_PROP = "picketlink.rolekey";
+    private boolean isOpenSamlInitialized = false;
+
+    private void init() {
+        XMLObjectProviderRegistry registry = new XMLObjectProviderRegistry();
+        ConfigurationService.register(XMLObjectProviderRegistry.class, registry);
+
+        try {
+            InitializationService.initialize();
+        } catch (InitializationException e) {
+            throw new RuntimeException(e);  // TODO  should this be fatal  rls
+        }
+
+        isOpenSamlInitialized = true;
+    }
 
     /**
      * Retrieves the SAML assertion from the SOAP payload and lets invocation go to JAAS for validation.
      */
     protected boolean handleInbound(MessageContext msgContext) {
         logger.trace("Handling Inbound Message");
+
+        if (!isOpenSamlInitialized) {
+            init();
+        }
 
         String assertionNS = JBossSAMLURIConstants.ASSERTION_NSURI.get();
         SOAPMessageContext ctx = (SOAPMessageContext) msgContext;
@@ -76,32 +107,45 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
         // retrieve the assertion
         Document document = soapMessage.getSOAPPart();
         Element soapHeader = Util.findOrCreateSoapHeader(document.getDocumentElement());
-        Element assertion = Util.findElement(soapHeader, new QName(assertionNS, "Assertion"));
-        if (assertion != null) {
-            AssertionType assertionType = null;
+        Element assertionElement = Util.findElement(soapHeader, new QName(assertionNS, "Assertion"));
+
+        if (assertionElement != null) {
+            // Get the UnmarshallerFactory and then the specific Unmarshaller for Assertion
+            UnmarshallerFactory unmarshallerFactory = XMLObjectProviderRegistrySupport.getUnmarshallerFactory();
+            Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(assertionElement);
+
+
+            //rls AssertionType assertionType = null;
+            //rls Assertion assertionType = assertion;
+            Assertion assertion = null;
             try {
-                assertionType = SAMLUtil.fromElement(assertion);
-                if (AssertionUtil.hasExpired(assertionType)) {
+                // Unmarshall the Element into an Assertion object
+                assertion = (Assertion) unmarshaller.unmarshall(assertionElement);
+                //rls assertionType = SAMLUtil.fromElement(assertion);  // rls parse element into Object
+                if (AssertionUtil.hasExpired(assertion)) {
                     throw new RuntimeException(logger.samlAssertionExpiredError());
                 }
             } catch (Exception e) {
                 logger.samlAssertionPasingFailed(e);
             }
-            SamlCredential credential = new SamlCredential(assertion);
+
+            SamlCredential credential = new SamlCredential(assertionElement);
             if (logger.isTraceEnabled()) {
                 logger.trace("Assertion included in SOAP payload: " + credential.getAssertionAsString());
             }
+            /** rls
             Element subject = Util.findElement(assertion, new QName(assertionNS, "Subject"));
             Element nameID = Util.findElement(subject, new QName(assertionNS, "NameID"));
             String username = getUsername(nameID);
+            **/
+            String username = assertion.getSubject().getNameID().getValue();
 
-            // set SecurityContext
             Subject theSubject = new Subject();
-            PicketLinkPrincipal principal = new PicketLinkPrincipal(username);
+            NamePrincipal principal = new NamePrincipal(username);
 
-            createSecurityContext(credential, theSubject, principal);
+            //rls createSecurityContext(credential, theSubject, principal);
 
-            if (assertionType != null) {
+            if (assertion != null) {
                 List<String> roleKeys = new ArrayList<String>();
                 String roleKey = SecurityActions.getSystemProperty(ROLE_KEY_SYS_PROP, "Role");
                 if (StringUtil.isNotNull(roleKey)) {
@@ -110,14 +154,14 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
 
                 logger.trace("Rolekeys to extract roles from the assertion: " + roleKeys);
 
-                List<String> roles = AssertionUtil.getRoles(assertionType, roleKeys);
+                List<String> roles = AssertionUtil.getRoles(assertion, roleKeys);
                 if (roles.size() > 0) {
                     logger.trace("Roles in the assertion: " + roles);
                     /** rls
                     Group roleGroup = SecurityActions.group(roles);
                     **/
                     for (String role : roles) {
-                        theSubject.getPrincipals().add(new Roles(role));
+                        theSubject.getPrincipals().add(new NamePrincipal(role));
                     }
                 } else {
                     logger.trace("Did not find roles in the assertion");
@@ -137,8 +181,14 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
      * @param principal
      */
     protected void createSecurityContext(SamlCredential credential, Subject theSubject, Principal principal) {
-        SecurityContext sc = SecurityActions.createSecurityContext(principal, credential, theSubject);
-        SecurityActions.setSecurityContext(sc);
+        /** rls
+         SecurityContext sc = SecurityActions.createSecurityContext(principal, credential, theSubject);
+         SecurityActions.setSecurityContext(sc);
+         **/
+        // rls  This is the object that gets created by the SecurityContextFactory and
+        //      registered with the SecurityContext.  TBD how to make it accessible when
+        //      needed
+        // org.jboss.security.SubjectInfo subjectInfo = new SubjectInfo(principal, credential, theSubject);
     }
 
     /**
@@ -147,6 +197,10 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
      */
     protected boolean handleOutbound(MessageContext msgContext) {
         logger.trace("Handling Outbound Message");
+
+        if (!isOpenSamlInitialized) {
+            init();
+        }
 
         SOAPMessageContext ctx = (SOAPMessageContext) msgContext;
         SOAPMessage soapMessage = ctx.getMessage();

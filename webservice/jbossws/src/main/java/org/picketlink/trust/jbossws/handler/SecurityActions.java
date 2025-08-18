@@ -20,20 +20,20 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.picketlink.trust.jbossws.handler;
-
+/** rls
 import org.jboss.security.SecurityConstants;
 import org.jboss.security.SecurityContext;
 import org.jboss.security.SecurityContextAssociation;
 import org.jboss.security.SecurityContextFactory;
 import org.jboss.security.SimplePrincipal;
 import org.picketlink.identity.federation.bindings.jboss.subject.PicketLinkGroup;
-
+**/
 import javax.security.auth.Subject;
 import java.security.AccessController;
-import java.security.Principal;
+//rls import java.security.Principal;
 import java.security.PrivilegedAction;
-import java.security.acl.Group;
-import java.util.List;
+//rls import java.security.acl.Group;
+//rls import java.util.List;
 
 /**
  * Privileged actions.
@@ -43,7 +43,7 @@ import java.util.List;
  * @version $Revision: 1 $
  */
 class SecurityActions {
-
+    /** rls OBSOLETE
     static SecurityContext createSecurityContext(final Principal p, final Object cred, final Subject subject) {
         SecurityManager sm = System.getSecurityManager();
 
@@ -98,13 +98,15 @@ class SecurityActions {
             return SecurityContextAssociation.getSecurityContext();
         }
     }
-
+    **/
     /**
      * Get the {@link Subject} from the {@link SecurityContextAssociation}
      *
      * @return authenticated subject or null
      */
     static Subject getAuthenticatedSubject() {
+        return null;  // rls TODO do something here
+        /** rls
         SecurityManager sm = System.getSecurityManager();
 
         if (sm != null) {
@@ -124,6 +126,7 @@ class SecurityActions {
             }
             return null;
         }
+        **/
     }
 
     /**
@@ -148,7 +151,7 @@ class SecurityActions {
             return System.getProperty(key, defaultValue);
         }
     }
-
+/** rls OBSOLETE
     static ClassLoader getClassLoader(final Class<?> clazz) {
         SecurityManager sm = System.getSecurityManager();
 
@@ -176,7 +179,7 @@ class SecurityActions {
             return Thread.currentThread().getContextClassLoader();
         }
     }
-
+    **/
     /**
      * Given a {@link List} of role names, construct a group principal of type {@link Group}
      *
@@ -184,6 +187,7 @@ class SecurityActions {
      *
      * @return
      */
+    /** rls OBSOETE
     static Group group(final List<String> roles) {
         SecurityManager sm = System.getSecurityManager();
 
@@ -205,4 +209,5 @@ class SecurityActions {
             return theGroup;
         }
     }
+    **/
 }

@@ -32,6 +32,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+
 /**
  * Util class dealing with xml based time
  *
@@ -92,6 +96,7 @@ public class XMLTimeUtil {
      *
      * @throws ConfigurationException
      */
+    /** rls  OBSOLETE **/
     public static XMLGregorianCalendar getIssueInstant(String timezone) throws ConfigurationException {
         TimeZone tz = TimeZone.getTimeZone(timezone);
         DatatypeFactory dtf;
@@ -107,6 +112,10 @@ public class XMLTimeUtil {
         return xgc;
     }
 
+    public static Instant getIssueInstant(ZoneId timezone) throws ConfigurationException {
+        return ZonedDateTime.now(timezone).toInstant();
+    }
+
     /**
      * Get the current instant of time
      *
@@ -114,6 +123,7 @@ public class XMLTimeUtil {
      *
      * @throws ConfigurationException
      */
+    /** rls OBSOLETE **/
     public static XMLGregorianCalendar getIssueInstant() throws ConfigurationException {
         return getIssueInstant(getCurrentTimeZoneID());
     }
@@ -131,6 +141,18 @@ public class XMLTimeUtil {
         return timezone.getID();
     }
 
+public static ZoneId getCurrentZoneID() {
+    String timezonePropertyValue = SecurityActions.getSystemProperty(GeneralConstants.TIMEZONE, "GMT");
+
+    ZoneId timezone;
+    if (GeneralConstants.TIMEZONE_DEFAULT.equals(timezonePropertyValue)) {
+        timezone = ZoneId.systemDefault();
+    } else {
+        timezone = ZoneId.of(timezonePropertyValue);
+    }
+
+    return timezone;
+}
     /**
      * Convert the minutes into miliseconds
      *
@@ -151,6 +173,7 @@ public class XMLTimeUtil {
      *
      * @return
      */
+    /** rls OBSOLETE **/
     public static boolean isValid(XMLGregorianCalendar now, XMLGregorianCalendar notbefore, XMLGregorianCalendar notOnOrAfter) {
         int val = 0;
 
@@ -170,6 +193,27 @@ public class XMLTimeUtil {
 
         return true;
     }
+
+    public static boolean isValid(Instant now, Instant notbefore, Instant notOnOrAfter) {
+        int val = 0;
+
+        if (notbefore != null) {
+            val = notbefore.compareTo(now);
+
+            if (val > 0)
+                return false;
+        }
+
+        if (notOnOrAfter != null) {
+            val = notOnOrAfter.compareTo(now);
+
+            if (val <= 0)
+                return false;
+        }
+
+        return true;
+    }
+
 
     /**
      * Given a string, get the Duration object. The string can be an ISO 8601 period representation (Eg.: P10M) or a

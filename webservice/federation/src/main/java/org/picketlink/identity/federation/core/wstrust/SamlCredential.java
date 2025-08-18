@@ -17,6 +17,8 @@
  */
 package org.picketlink.identity.federation.core.wstrust;
 
+//rls import org.opensaml.saml.saml2.core.Assertion;
+
 import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;

@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.picketlink.trust.jbossws.handler;
-
+/** rls
 import org.jboss.security.AuthorizationManager;
 import org.jboss.security.SecurityConstants;
 import org.jboss.security.SecurityContext;
@@ -30,9 +30,12 @@ import org.picketlink.common.exceptions.ConfigurationException;
 import org.picketlink.common.exceptions.ProcessingException;
 import org.picketlink.trust.jbossws.util.JBossWSNativeStackUtil;
 import org.picketlink.trust.jbossws.util.JBossWSSERoleExtractor;
+**/
+import org.wildfly.security.auth.principal.NamePrincipal;
+
 import org.w3c.dom.Node;
 
-import javax.security.auth.Subject;
+//rls import javax.security.auth.Subject;
 import jakarta.servlet.ServletContext;
 import javax.xml.namespace.QName;
 import jakarta.xml.soap.SOAPBody;
@@ -80,6 +83,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
         QName portName = (QName) msgContext.get(MessageContext.WSDL_PORT);
         QName opName = (QName) msgContext.get(MessageContext.WSDL_OPERATION);
 
+        /** TODO replace this code as appropriate
         if (portName == null) {
             portName = JBossWSNativeStackUtil.getPortNameViaReflection(getClass(), msgContext);
         }
@@ -136,13 +140,14 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
                 throw logger.jbossWSAuthorizationFailed();
             }
         }
+        **/
         return true;
     }
 
     protected Set<Principal> rolesSet(List<String> roles) {
         Set<Principal> principals = new HashSet<Principal>();
         for (String role : roles) {
-            principals.add(new SimplePrincipal(role));
+            principals.add(new NamePrincipal(role));
         }
         return principals;
     }
@@ -190,7 +195,9 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
      *
      * @throws ConfigurationException
      */
+    /** rls
     protected AuthorizationManager getAuthorizationManager(MessageContext msgContext) throws ConfigurationException {
         return (AuthorizationManager) lookupJNDI(SecurityConstants.JAAS_CONTEXT_ROOT + getSecurityDomainName(msgContext) + "/authorizationMgr");
     }
+    **/
 }

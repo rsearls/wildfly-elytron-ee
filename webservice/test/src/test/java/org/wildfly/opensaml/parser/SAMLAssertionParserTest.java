@@ -2,29 +2,42 @@ package org.wildfly.opensaml.parser;
 
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.opensaml.core.xml.XMLObject;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.Unmarshaller;
 import org.opensaml.core.xml.io.UnmarshallerFactory;
 import org.opensaml.core.xml.io.UnmarshallingException;
+import org.opensaml.saml.saml2.core.Conditions;
 import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.Statement;
+import org.opensaml.saml.saml2.core.Response;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistry;
 import org.opensaml.core.config.ConfigurationService;
 import org.opensaml.core.config.InitializationService;
 import org.opensaml.core.config.InitializationException;
-import org.opensaml.saml.saml2.core.Response;
+import org.opensaml.core.xml.schema.XSString;
+
+import org.picketlink.identity.federation.core.saml.v2.util.XMLTimeUtil;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+//rls import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.w3c.dom.Node;
 
 public class SAMLAssertionParserTest {
 
@@ -40,12 +53,6 @@ public class SAMLAssertionParserTest {
     @Test
     public void testSimpleSAML() throws Exception {
         try {
-            /*** rls
-            XMLObjectProviderRegistry registry = new XMLObjectProviderRegistry();
-            ConfigurationService.register(XMLObjectProviderRegistry.class, registry);
-
-            InitializationService.initialize();
-        ***/
             String samlAssertionXML = "<saml:Assertion xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" ID=\"_someID\" Version=\"2.0\" IssueInstant=\"2025-08-08T15:00:00.000Z\">" +
                 "  <saml:Issuer>http://idp.example.com</saml:Issuer>" +
                 "  <saml:Subject>" +
@@ -174,6 +181,48 @@ public class SAMLAssertionParserTest {
                 System.out.println("Subject NameID: " + assertion.getSubject().getNameID().getValue());
                 System.out.println("Advice: " + (assertion.getAdvice() == null ? "NULL" : "SOME-VALUE"));
                 System.out.println("Signature: " + (assertion.getSignature() == null ? "NULL" : "SOME-VALUE"));
+
+                Conditions conditions = assertion.getConditions();
+                if (conditions != null) {
+                    Instant now = XMLTimeUtil.getIssueInstant(XMLTimeUtil.getCurrentZoneID());
+                    Instant notBefore = conditions.getNotBefore();
+                    Instant notOnOrAfter = conditions.getNotOnOrAfter();
+                    System.out.println("Condition now: " + now.toString());
+                    System.out.println("Condition NotBefore: " + notBefore.toString());
+                    System.out.println("Condition NotOnOrAfter: " + notOnOrAfter.toString());
+                    System.out.println("Condition isValid: " + Boolean.toString(XMLTimeUtil.isValid(now, notBefore, notOnOrAfter)));
+
+                    Subject subject = assertion.getSubject();
+                }
+
+                List<String> roles = new ArrayList<>();
+                List<Statement> statementList = assertion.getStatements();
+                for (Statement statement : statementList) {
+                    if (statement instanceof AttributeStatement) {
+                        AttributeStatement attributeStatement = (AttributeStatement) statement;
+                        List<Attribute> attList = attributeStatement.getAttributes();
+                        for (Attribute attr : attList) {
+                            List<XMLObject> attributeValues = attr.getAttributeValues();
+                            if (attributeValues != null) {
+                                for (XMLObject attrValue : attributeValues) {
+                                    if (attrValue instanceof XSString) {
+                                        roles.add(((XSString) attrValue).getValue());
+                                        System.out.println("Attribute (XSString) role: "
+                                            + ((XSString) attrValue).getValue());
+                                    } else if (attrValue instanceof Node) {
+                                        Node roleNode = (Node) attrValue;
+                                        roles.add(roleNode.getFirstChild().getNodeValue());
+                                        System.out.println("Attribute (Node) role: "
+                                            + roleNode.getFirstChild().getNodeValue());
+                                    } else
+                                        System.out.println("UNHandled attribute role type: "
+                                            + attrValue.getClass().getCanonicalName());
+                                }
+                            }
+                        }
+                    }
+                }
+
                 System.out.println("---");
             }
         } catch (ParserConfigurationException | IOException | UnmarshallingException e) {

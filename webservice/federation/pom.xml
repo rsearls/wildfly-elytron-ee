@@ -48,7 +48,10 @@
             <groupId>org.wildfly.security.jakarta</groupId>
             <artifactId>config</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
         <!-- Jakarta API Dependencies -->
         <dependency>
             <groupId>jakarta.servlet</groupId>

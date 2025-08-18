@@ -48,6 +48,15 @@ import org.picketlink.identity.federation.saml.v2.assertion.NameIDType;
 import org.picketlink.identity.federation.saml.v2.assertion.StatementAbstractType;
 import org.picketlink.identity.federation.saml.v2.assertion.SubjectType;
 import org.picketlink.identity.federation.saml.v2.assertion.SubjectType.STSubType;
+
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Conditions;
+import org.opensaml.saml.saml2.core.Statement;
+import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.schema.XSString;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -57,6 +66,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.security.PublicKey;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -290,6 +300,7 @@ public class AssertionUtil {
      *
      * @throws ConfigurationException
      */
+    /** rls OBSOLETE **/
     public static boolean hasExpired(AssertionType assertion) throws ConfigurationException {
         boolean expiry = false;
 
@@ -318,7 +329,37 @@ public class AssertionUtil {
         // TODO: if conditions do not exist, assume the assertion to be everlasting?
         return expiry;
     }
+    // rls start
+    public static boolean hasExpired(Assertion assertion) throws ConfigurationException {
+        boolean expiry = false;
 
+        // Check for validity of assertion
+        Conditions conditionsType = assertion.getConditions();
+        if (conditionsType != null) {
+            Instant now = XMLTimeUtil.getIssueInstant(XMLTimeUtil.getCurrentZoneID());
+            Instant notBefore = conditionsType.getNotBefore();
+            Instant notOnOrAfter = conditionsType.getNotOnOrAfter();
+
+            if (notBefore != null) {
+                logger.trace("Assertion: " + assertion.getID() + " ::Now=" + now.toString() + " ::notBefore=" + notBefore.toString());
+            }
+
+            if (notOnOrAfter != null) {
+                logger.trace("Assertion: " + assertion.getID() + " ::Now=" + now.toString() + " ::notOnOrAfter=" + notOnOrAfter.toString());
+            }
+
+            expiry = !XMLTimeUtil.isValid(now, notBefore, notOnOrAfter);
+
+            if (expiry) {
+                logger.samlAssertionExpired(assertion.getID());
+            }
+        }
+
+        // TODO: if conditions do not exist, assume the assertion to be everlasting?
+        return expiry;
+    }
+
+    // rls end
     /**
      * Verify whether the assertion has expired. You can add in a clock skew to adapt to conditions where in the IDP and
      * SP are
@@ -489,6 +530,7 @@ public class AssertionUtil {
      *
      * @return
      */
+    // rls OBSOLETE
     public static List<String> getRoles(AssertionType assertion, List<String> roleKeys) {
         List<String> roles = new ArrayList<String>();
         Set<StatementAbstractType> statements = assertion.getStatements();
@@ -507,6 +549,39 @@ public class AssertionUtil {
                         for (Object attrValue : attributeValues) {
                             if (attrValue instanceof String) {
                                 roles.add((String) attrValue);
+                            } else if (attrValue instanceof Node) {
+                                Node roleNode = (Node) attrValue;
+                                roles.add(roleNode.getFirstChild().getNodeValue());
+                            } else
+                                throw logger.unknownObjectType(attrValue);
+                        }
+                    }
+                }
+            }
+        }
+        return roles;
+    }
+
+    public static List<String> getRoles(Assertion assertion, List<String> roleKeys) {
+        List<String> roles = new ArrayList<String>();
+        //rls Set<StatementAbstractType> statements = assertion.getStatements();
+        List<Statement> statementList = assertion.getStatements();
+        for (Statement statement : statementList) {
+            if (statement instanceof AttributeStatement) {
+                AttributeStatement attributeStatement = (AttributeStatement) statement;
+                //rls List<ASTChoiceType> attList = attributeStatement.getAttributes();
+                List<Attribute> attList = attributeStatement.getAttributes();
+                for (Attribute attr : attList) {
+                    //rls AttributeType attr = obj.getAttribute();
+                    if (roleKeys != null && roleKeys.size() > 0) {
+                        if (!roleKeys.contains(attr.getName()))
+                            continue;
+                    }
+                    List<XMLObject> attributeValues = attr.getAttributeValues();
+                    if (attributeValues != null) {
+                        for (XMLObject attrValue : attributeValues) {
+                            if (attrValue instanceof XSString) {
+                                roles.add(((XSString) attrValue).getValue());
                             } else if (attrValue instanceof Node) {
                                 Node roleNode = (Node) attrValue;
                                 roles.add(roleNode.getFirstChild().getNodeValue());

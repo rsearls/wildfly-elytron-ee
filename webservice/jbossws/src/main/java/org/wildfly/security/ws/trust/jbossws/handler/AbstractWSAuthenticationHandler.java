@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.picketlink.trust.jbossws.handler;
+package org.wildfly.security.ws.trust.jbossws.handler;
 
 import io.undertow.security.api.SecurityContext;
 import io.undertow.servlet.spec.HttpServletRequestImpl;
@@ -38,7 +38,7 @@ import jakarta.xml.ws.handler.MessageContext;
 public abstract class AbstractWSAuthenticationHandler extends AbstractPicketLinkTrustHandler {
 
     /* (non-Javadoc)
-     * @see org.picketlink.trust.jbossws.handler.AbstractPicketLinkTrustHandler#handleInbound(javax.xml.ws.handler.MessageContext)
+     * @see org.wildfly.security.ws.trust.handler.jbossws.AbstractPicketLinkTrustHandler#handleInbound(javax.xml.ws.handler.MessageContext)
      */
     @Override
     protected boolean handleInbound(MessageContext msgContext) {

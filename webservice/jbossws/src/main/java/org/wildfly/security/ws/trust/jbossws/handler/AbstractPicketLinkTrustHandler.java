@@ -19,14 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.picketlink.trust.jbossws.handler;
+package org.wildfly.security.ws.trust.jbossws.handler;
 
 import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;
 import org.picketlink.common.util.DocumentUtil;
-import org.picketlink.trust.jbossws.Constants;
-import org.picketlink.trust.jbossws.Util;
+import org.wildfly.security.ws.trust.jbossws.Constants;
+import org.wildfly.security.ws.trust.jbossws.Util;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -20,19 +20,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.picketlink.trust.jbossws.handler;
+package org.wildfly.security.ws.trust.jbossws.handler;
 
 import jakarta.xml.ws.handler.MessageContext;
 
 /**
- * <p>{@link SAML2Handler} implementation to handle only inbound messages.</p>
+ * <p>{@link SAML2Handler} implementation to handle only outbound messages.</p>
  *
  * @author Pedro Igor
  */
-public class SAMLInboundHandler extends SAML2Handler {
+public class SAMLOutboundHandler extends SAML2Handler {
 
     @Override
-    protected boolean handleOutbound(MessageContext msgContext) {
+    protected boolean handleInbound(MessageContext msgContext) {
         // noop
         return true;
     }

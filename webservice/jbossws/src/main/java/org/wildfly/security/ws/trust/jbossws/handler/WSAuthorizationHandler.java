@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2012, Red Hat, Inc., and individual contributors
+ * Copyright 2008, Red Hat Middleware LLC, and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,21 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.picketlink.trust.jbossws.handler;
-
-import jakarta.xml.ws.handler.MessageContext;
+package org.wildfly.security.ws.trust.jbossws.handler;
 
 /**
- * <p>{@link SAML2Handler} implementation to handle only outbound messages.</p>
+ * An authorization handler for the POJO Web services Based on the Authorize Operation on the JBossWS Native stack
  *
- * @author Pedro Igor
+ * @author <a href="mailto:darran.lofthouse@jboss.com">Darran Lofthouse</a>
+ * @author Anil.Saldhana@redhat.com
+ * @since Apr 11, 2011
  */
-public class SAMLOutboundHandler extends SAML2Handler {
+public class WSAuthorizationHandler extends AbstractWSAuthorizationHandler {
 
-    @Override
-    protected boolean handleInbound(MessageContext msgContext) {
-        // noop
-        return true;
-    }
 }

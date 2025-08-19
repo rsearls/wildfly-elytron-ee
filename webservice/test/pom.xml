@@ -45,10 +45,6 @@
             <artifactId>common</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.security.jakarta</groupId>
-            <artifactId>config</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>opensaml-core</artifactId>
         </dependency>

@@ -17,11 +17,12 @@
  */
 package org.picketlink.common.util;
 
-import org.picketlink.common.ErrorCodes;
+//rls import org.picketlink.common.ErrorCodes;
 import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.constants.GeneralConstants;
 import org.picketlink.common.exceptions.ConfigurationException;
+/** rls
 import org.picketlink.common.exceptions.ParsingException;
 import org.picketlink.common.exceptions.ProcessingException;
 import org.w3c.dom.Document;
@@ -41,20 +42,26 @@ import javax.xml.stream.events.Namespace;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.ErrorListener;
+**/
 import javax.xml.transform.OutputKeys;
+/** rls
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+**/
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
+//rls import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
+/** rls
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stax.StAXSource;
+
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Stack;
+**/
 
 /**
  * Utility to deal with JAXP Transformer
@@ -127,10 +134,11 @@ public class TransformerUtil {
      *
      * @throws ConfigurationException
      */
+    /** rls
     public static Transformer getStaxSourceToDomResultTransformer() throws ConfigurationException {
         return new PicketLinkStaxToDOMTransformer();
     }
-
+**/
     /**
      * Use the transformer to transform
      *
@@ -140,10 +148,11 @@ public class TransformerUtil {
      *
      * @throws ParsingException
      */
+    /** rls
     public static void transform(Transformer transformer, StAXSource stax, DOMResult result) throws ParsingException {
         transform(transformer, (Source) stax, result);
     }
-
+**/
     /**
      * Use the transformer to transform
      *
@@ -153,6 +162,7 @@ public class TransformerUtil {
      *
      * @throws ParsingException
      */
+    /** rls
     public static void transform(Transformer transformer, Source source, DOMResult result) throws ParsingException {
         boolean tccl_jaxp = SystemPropertiesUtil.getSystemProperty(GeneralConstants.TCCL_JAXP, "false").equalsIgnoreCase("true");
         ClassLoader prevCL = SecurityActions.getTCCL();
@@ -180,12 +190,13 @@ public class TransformerUtil {
             throw logger.parserError(e);
         }
     }
-
+**/
     /**
      * Custom Project {@code Transformer} that can take in a {@link StAXSource} and transform into {@link DOMResult}
      *
      * @author anil
      */
+    /** rls
     private static class PicketLinkStaxToDOMTransformer extends Transformer {
         @Override
         public void transform(Source xmlSource, Result outputTarget) throws TransformerException {
@@ -428,4 +439,5 @@ public class TransformerUtil {
             }
         }
     }
+    **/
 }

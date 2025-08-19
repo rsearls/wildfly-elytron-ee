@@ -21,10 +21,11 @@
  */
 package org.picketlink.identity.federation.core.saml.v2.util;
 
-import org.picketlink.common.ErrorCodes;
+//rls import org.picketlink.common.ErrorCodes;
 import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;
+/** rls
 import org.picketlink.common.exceptions.ProcessingException;
 import org.picketlink.common.exceptions.fed.IssueInstantMissingException;
 import org.picketlink.common.util.DocumentUtil;
@@ -48,7 +49,7 @@ import org.picketlink.identity.federation.saml.v2.assertion.NameIDType;
 import org.picketlink.identity.federation.saml.v2.assertion.StatementAbstractType;
 import org.picketlink.identity.federation.saml.v2.assertion.SubjectType;
 import org.picketlink.identity.federation.saml.v2.assertion.SubjectType.STSubType;
-
+**/
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Conditions;
 import org.opensaml.saml.saml2.core.Statement;
@@ -56,20 +57,22 @@ import org.opensaml.saml.saml2.core.AttributeStatement;
 import org.opensaml.saml.saml2.core.Attribute;
 import org.opensaml.core.xml.XMLObject;
 import org.opensaml.core.xml.schema.XSString;
-
+/** rls
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+**/
 import org.w3c.dom.Node;
-
+/** rls
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.security.PublicKey;
+ **/
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+//rls import java.util.Set;
 
 /**
  * Utility to deal with assertions
@@ -90,13 +93,14 @@ public class AssertionUtil {
      *
      * @throws ProcessingException
      */
+    /** rls
     public static String asString(AssertionType assertion) throws ProcessingException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         SAMLAssertionWriter writer = new SAMLAssertionWriter(StaxUtil.getXMLStreamWriter(baos));
         writer.write(assertion);
         return new String(baos.toByteArray());
     }
-
+**/
     /**
      * Given {@code AssertionType}, convert it into a DOM Document.
      *
@@ -106,6 +110,7 @@ public class AssertionUtil {
      *
      * @throws ProcessingException
      */
+    /**
     public static Document asDocument(AssertionType assertion) throws ProcessingException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         SAMLAssertionWriter writer = new SAMLAssertionWriter(StaxUtil.getXMLStreamWriter(baos));
@@ -118,7 +123,7 @@ public class AssertionUtil {
             throw logger.processingError(e);
         }
     }
-
+**/
     /**
      * Create an assertion
      *
@@ -127,12 +132,13 @@ public class AssertionUtil {
      *
      * @return
      */
+    /** rls
     public static SAML11AssertionType createSAML11Assertion(String id, XMLGregorianCalendar issueInstant, String issuer) {
         SAML11AssertionType assertion = new SAML11AssertionType(id, issueInstant);
         assertion.setIssuer(issuer);
         return assertion;
     }
-
+**/
     /**
      * Create an assertion
      *
@@ -141,6 +147,7 @@ public class AssertionUtil {
      *
      * @return
      */
+    /** rls
     public static AssertionType createAssertion(String id, NameIDType issuer) {
         XMLGregorianCalendar issueInstant = null;
         try {
@@ -152,7 +159,7 @@ public class AssertionUtil {
         assertion.setIssuer(issuer);
         return assertion;
     }
-
+**/
     /**
      * Given a user name, create a {@code SubjectType} that can then be inserted into an assertion
      *
@@ -160,6 +167,7 @@ public class AssertionUtil {
      *
      * @return
      */
+    /** rls
     public static SubjectType createAssertionSubject(String userName) {
         SubjectType assertionSubject = new SubjectType();
         STSubType subType = new STSubType();
@@ -169,7 +177,7 @@ public class AssertionUtil {
         assertionSubject.setSubType(subType);
         return assertionSubject;
     }
-
+**/
     /**
      * Create an attribute type
      *
@@ -179,6 +187,7 @@ public class AssertionUtil {
      *
      * @return
      */
+    /** rls
     public static AttributeType createAttribute(String name, String nameFormat, Object... attributeValues) {
         AttributeType att = new AttributeType(name);
         att.setNameFormat(nameFormat);
@@ -190,7 +199,7 @@ public class AssertionUtil {
 
         return att;
     }
-
+**/
     /**
      * <p>
      * Add validity conditions to the SAML2 Assertion
@@ -206,6 +215,7 @@ public class AssertionUtil {
      * @see {{@link #createTimedConditions(AssertionType, long, long)}
      *      </p>
      */
+    /** rls
     public static void createTimedConditions(AssertionType assertion, long durationInMilis) throws ConfigurationException,
             IssueInstantMissingException {
         XMLGregorianCalendar issueInstant = assertion.getIssueInstant();
@@ -218,7 +228,7 @@ public class AssertionUtil {
 
         assertion.setConditions(conditionsType);
     }
-
+**/
     /**
      * Add validity conditions to the SAML2 Assertion
      *
@@ -228,6 +238,7 @@ public class AssertionUtil {
      * @throws ConfigurationException
      * @throws IssueInstantMissingException
      */
+    /** rls
     public static void createTimedConditions(AssertionType assertion, long durationInMilis, long clockSkew)
             throws ConfigurationException, IssueInstantMissingException {
         XMLGregorianCalendar issueInstant = assertion.getIssueInstant();
@@ -244,7 +255,7 @@ public class AssertionUtil {
 
         assertion.setConditions(conditionsType);
     }
-
+**/
     /**
      * Add validity conditions to the SAML2 Assertion
      *
@@ -254,6 +265,7 @@ public class AssertionUtil {
      * @throws ConfigurationException
      * @throws IssueInstantMissingException
      */
+    /** rls
     public static void createSAML11TimedConditions(SAML11AssertionType assertion, long durationInMilis, long clockSkew)
             throws ConfigurationException, IssueInstantMissingException {
         XMLGregorianCalendar issueInstant = assertion.getIssueInstant();
@@ -269,7 +281,7 @@ public class AssertionUtil {
         conditionsType.setNotOnOrAfter(assertionValidityLength);
         assertion.setConditions(conditionsType);
     }
-
+**/
     /**
      * Given an assertion element, validate the signature
      *
@@ -278,6 +290,7 @@ public class AssertionUtil {
      *
      * @return
      */
+    /** rls
     public static boolean isSignatureValid(Element assertionElement, PublicKey publicKey) {
         try {
             Document doc = DocumentUtil.createDocument();
@@ -290,7 +303,7 @@ public class AssertionUtil {
         }
         return false;
     }
-
+**/
     /**
      * Check whether the assertion has expired
      *
@@ -300,7 +313,7 @@ public class AssertionUtil {
      *
      * @throws ConfigurationException
      */
-    /** rls OBSOLETE **/
+    /** rls OBSOLETE
     public static boolean hasExpired(AssertionType assertion) throws ConfigurationException {
         boolean expiry = false;
 
@@ -329,6 +342,7 @@ public class AssertionUtil {
         // TODO: if conditions do not exist, assume the assertion to be everlasting?
         return expiry;
     }
+     **/
     // rls start
     public static boolean hasExpired(Assertion assertion) throws ConfigurationException {
         boolean expiry = false;
@@ -372,6 +386,7 @@ public class AssertionUtil {
      *
      * @throws ConfigurationException
      */
+    /** rls
     public static boolean hasExpired(AssertionType assertion, long clockSkewInMilis) throws ConfigurationException {
         boolean expiry = false;
 
@@ -394,7 +409,7 @@ public class AssertionUtil {
         // TODO: if conditions do not exist, assume the assertion to be everlasting?
         return expiry;
     }
-
+    **/
     /**
      * <p>Checks whether the given assertion is intended for the given {@link org.picketlink.config.federation.SPType} or not.</p>
      *
@@ -402,6 +417,7 @@ public class AssertionUtil {
      * @param spType
      * @return
      */
+    /** rls
     public static boolean isAudience(AssertionType assertionType, SPType spType) {
         ConditionsType conditionsType = assertionType.getConditions();
 
@@ -437,7 +453,7 @@ public class AssertionUtil {
 
         return true;
     }
-
+    **/
     /**
      * Check whether the assertion has expired
      *
@@ -447,6 +463,7 @@ public class AssertionUtil {
      *
      * @throws ConfigurationException
      */
+    /** rls
     public static boolean hasExpired(SAML11AssertionType assertion) throws ConfigurationException {
         boolean expiry = false;
 
@@ -468,7 +485,7 @@ public class AssertionUtil {
         // TODO: if conditions do not exist, assume the assertion to be everlasting?
         return expiry;
     }
-
+    **/
     /**
      * Verify whether the assertion has expired. You can add in a clock skew to adapt to conditions where in the IDP and
      * SP are
@@ -481,6 +498,7 @@ public class AssertionUtil {
      *
      * @throws ConfigurationException
      */
+    /** rls
     public static boolean hasExpired(SAML11AssertionType assertion, long clockSkewInMilis) throws ConfigurationException {
         boolean expiry = false;
 
@@ -504,7 +522,7 @@ public class AssertionUtil {
         // TODO: if conditions do not exist, assume the assertion to be everlasting?
         return expiry;
     }
-
+    **/
     /**
      * Extract the expiration time from an {@link AssertionType}
      *
@@ -512,6 +530,7 @@ public class AssertionUtil {
      *
      * @return
      */
+    /** rls
     public static XMLGregorianCalendar getExpiration(AssertionType assertion) {
         XMLGregorianCalendar expiry = null;
 
@@ -521,7 +540,7 @@ public class AssertionUtil {
         }
         return expiry;
     }
-
+    **/
     /**
      * Given an assertion, return the list of roles it may have
      *
@@ -530,7 +549,7 @@ public class AssertionUtil {
      *
      * @return
      */
-    // rls OBSOLETE
+    /** rls OBSOLETE
     public static List<String> getRoles(AssertionType assertion, List<String> roleKeys) {
         List<String> roles = new ArrayList<String>();
         Set<StatementAbstractType> statements = assertion.getStatements();
@@ -561,7 +580,7 @@ public class AssertionUtil {
         }
         return roles;
     }
-
+    **/
     public static List<String> getRoles(Assertion assertion, List<String> roleKeys) {
         List<String> roles = new ArrayList<String>();
         //rls Set<StatementAbstractType> statements = assertion.getStatements();
@@ -603,6 +622,7 @@ public class AssertionUtil {
      *
      * @return
      */
+    /** rls
     public static List<String> getRoles(SAML11AssertionType assertion, List<String> roleKeys) {
         List<String> roles = new ArrayList<String>();
         List<SAML11StatementAbstractType> statements = assertion.getStatements();
@@ -632,4 +652,5 @@ public class AssertionUtil {
         }
         return roles;
     }
+    **/
 }

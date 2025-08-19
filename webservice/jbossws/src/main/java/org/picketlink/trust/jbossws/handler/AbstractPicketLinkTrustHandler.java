@@ -26,7 +26,7 @@ import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;
 //rls import org.picketlink.common.exceptions.ProcessingException;
-import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
+import org.picketlink.common.util.DocumentUtil;
 //rls import org.picketlink.identity.federation.core.wstrust.SamlCredential;
 import org.picketlink.trust.jbossws.Constants;
 import org.picketlink.trust.jbossws.Util;

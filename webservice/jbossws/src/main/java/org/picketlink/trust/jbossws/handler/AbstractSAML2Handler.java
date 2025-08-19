@@ -29,7 +29,7 @@ import org.picketlink.identity.federation.core.saml.v2.util.AssertionUtil;
 import org.picketlink.identity.federation.core.wstrust.SamlCredential;
 //rls import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
 //rls import org.picketlink.identity.federation.saml.v2.assertion.AssertionType;
-import org.picketlink.trust.jbossws.SAML2Constants;
+//rls import org.picketlink.trust.jbossws.SAML2Constants;
 import org.picketlink.trust.jbossws.Util;
 
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
@@ -206,7 +206,8 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
         SOAPMessage soapMessage = ctx.getMessage();
 
         // retrieve assertion first from the message context
-        Element assertion = (Element) ctx.get(SAML2Constants.SAML2_ASSERTION_PROPERTY);
+        String SAML2_ASSERTION_PROPERTY = "org.picketlink.trust.saml.assertion";  // rls TODO replace this
+        Element assertion = (Element) ctx.get(SAML2_ASSERTION_PROPERTY);
 
         // Assertion can also be obtained from the JAAS subject
         if (assertion == null) {

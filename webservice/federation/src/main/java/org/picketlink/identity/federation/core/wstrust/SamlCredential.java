@@ -23,7 +23,7 @@ import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;
 import org.picketlink.common.exceptions.ParsingException;
-import org.picketlink.common.exceptions.ProcessingException;
+//rls import org.picketlink.common.exceptions.ProcessingException;
 import org.picketlink.common.util.DocumentUtil;
 import org.picketlink.common.util.StringUtil;
 import org.picketlink.common.util.TransformerUtil;
@@ -40,6 +40,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.security.GeneralSecurityException;
 
 /**
  * Credential that wraps a SAML Assertion.
@@ -74,7 +75,7 @@ public final class SamlCredential implements Serializable {
         return assertion;
     }
 
-    public Element getAssertionAsElement() throws ProcessingException {
+    public Element getAssertionAsElement() throws GeneralSecurityException {
         return SamlCredential.assertionToElement(assertion);
     }
 
@@ -102,7 +103,7 @@ public final class SamlCredential implements Serializable {
         return "SamlCredential[" + assertion + "]";
     }
 
-    public static Element assertionToElement(final String assertion) throws ProcessingException {
+    public static Element assertionToElement(final String assertion) throws GeneralSecurityException {
         try {
             Document document = DocumentUtil.getDocument(assertion);
             return (Element) document.getFirstChild();

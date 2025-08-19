@@ -21,7 +21,8 @@ package org.picketlink.common;
 
 import org.picketlink.common.exceptions.ConfigurationException;
 import org.picketlink.common.exceptions.ParsingException;
-import org.picketlink.common.exceptions.ProcessingException;
+//rls import org.picketlink.common.exceptions.ProcessingException;
+/** rls
 import org.picketlink.common.exceptions.TrustKeyConfigurationException;
 import org.picketlink.common.exceptions.TrustKeyProcessingException;
 import org.picketlink.common.exceptions.fed.AssertionExpiredException;
@@ -33,9 +34,12 @@ import org.w3c.dom.Element;
 
 import javax.security.auth.login.LoginException;
 import javax.xml.crypto.dsig.XMLSignatureException;
+**/
 import javax.xml.stream.Location;
+/** rls
 import javax.xml.ws.WebServiceException;
 import java.io.IOException;
+**/
 import java.security.GeneralSecurityException;
 
 /**
@@ -56,7 +60,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    IllegalArgumentException nullArgumentError(String argument);
+     IllegalArgumentException nullArgumentError(String argument);
 
     /**
      * <p>Creates an {@link IllegalArgumentException} for arguments that should not be the same.</p>
@@ -65,7 +69,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    IllegalArgumentException shouldNotBeTheSameError(String string);
+    //rls IllegalArgumentException shouldNotBeTheSameError(String string);
 
     /**
      * <p>Creates an {@link ProcessingException} for resources that are not found.</p>
@@ -74,7 +78,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    ProcessingException resourceNotFound(String resource);
+    //rls ProcessingException resourceNotFound(String resource);
 
     /**
      * <p>Creates an {@link ProcessingException} for generics processing errors.</p>
@@ -84,7 +88,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    ProcessingException processingError(Throwable t);
+    GeneralSecurityException processingError(Throwable t);
 
     /**
      * <p>Creates an {@link RuntimeException} for not supported types.</p>
@@ -93,7 +97,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException unsupportedType(String name);
+    //rls RuntimeException unsupportedType(String name);
 
     /**
      * <p>Creates a {@link ProcessingException} for exceptions raised during signature processing.</p>
@@ -102,7 +106,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    XMLSignatureException signatureError(Throwable e);
+    //rls XMLSignatureException signatureError(Throwable e);
 
     /**
      * <p>Creates a {@link RuntimeException} for null values.</p>
@@ -120,28 +124,28 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException notImplementedYet(String string);
+    //rls RuntimeException notImplementedYet(String string);
 
     /**
      * <p>Creates a {@link IllegalStateException} for the case the Audit Manager is null.</p>
      *
      * @return
      */
-    IllegalStateException auditNullAuditManager();
+    //rls IllegalStateException auditNullAuditManager();
 
     /**
      * <p>Indicates if the logging level is set to INFO.</p>
      *
      * @return
      */
-    boolean isInfoEnabled();
+    //rls boolean isInfoEnabled();
 
     /**
      * <p>Logs a PicketLink Audit Event.</p>
      *
      * @param auditEvent
      */
-    void auditEvent(String auditEvent);
+    //rls void auditEvent(String auditEvent);
 
     /**
      * <p>Creates a {@link RuntimeException} for missing values.</p>
@@ -150,24 +154,24 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException injectedValueMissing(String value);
+    //rls  RuntimeException injectedValueMissing(String value);
 
     /** <p>Logs a message during the KeyStore setup.</p> */
-    void keyStoreSetup();
+    //rls void keyStoreSetup();
 
     /**
      * <p>Creates a {@link IllegalStateException} for the case where the KeyStore is null.</p>
      *
      * @return
      */
-    IllegalStateException keyStoreNullStore();
+    //rls IllegalStateException keyStoreNullStore();
 
     /**
      * <p>Logs a message for the cases where no public key was found for a given alias.</p>
      *
      * @param alias
      */
-    void keyStoreNullPublicKeyForAlias(String alias);
+    //rls void keyStoreNullPublicKeyForAlias(String alias);
 
     /**
      * <p>Creates a {@link TrustKeyConfigurationException} for exceptions raised during the KeyStore configuration.</p>
@@ -176,7 +180,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    TrustKeyConfigurationException keyStoreConfigurationError(Throwable t);
+    //rls TrustKeyConfigurationException keyStoreConfigurationError(Throwable t);
 
     /**
      * <p>Creates a {@link TrustKeyConfigurationException} for exceptions raised during the KeyStore processing.</p>
@@ -185,23 +189,23 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    TrustKeyProcessingException keyStoreProcessingError(Throwable t);
+    //rls TrustKeyProcessingException keyStoreProcessingError(Throwable t);
 
     /**
      * @param domain
      *
      * @return
      */
-    IllegalStateException keyStoreMissingDomainAlias(String domain);
+    //rls IllegalStateException keyStoreMissingDomainAlias(String domain);
 
     /**
      * <p>Creates a {@link RuntimeException} for the case where the signing key password is null.</p>
      *
      * @return
      */
-    RuntimeException keyStoreNullSigningKeyPass();
+    //rls RuntimeException keyStoreNullSigningKeyPass();
 
-    RuntimeException keyStoreNullEncryptionKeyPass();
+    //rls RuntimeException keyStoreNullEncryptionKeyPass();
 
     /**
      * <p>Creates a {@link RuntimeException} for the case where key store are not located.</p>
@@ -210,14 +214,14 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException keyStoreNotLocated(String keyStore);
+    //rls  RuntimeException keyStoreNotLocated(String keyStore);
 
     /**
      * <p>Creates a {@link IllegalStateException} for the case where the alias is null.</p>
      *
      * @return
      */
-    IllegalStateException keyStoreNullAlias();
+    //rls IllegalStateException keyStoreNullAlias();
 
     /**
      * <p>Creates a {@link RuntimeException} for the case where parser founds a unknown end element.</p>
@@ -249,24 +253,24 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException parserUnknownStartElement(String elementName, Location location);
+    //rls RuntimeException parserUnknownStartElement(String elementName, Location location);
 
     /** @return  */
-    IllegalStateException parserNullStartElement();
+    //rls  IllegalStateException parserNullStartElement();
 
     /**
      * @param xsiTypeValue
      *
      * @return
      */
-    ParsingException parserUnknownXSI(String xsiTypeValue);
+    //rls  ParsingException parserUnknownXSI(String xsiTypeValue);
 
     /**
      * @param string
      *
      * @return
      */
-    ParsingException parserExpectedEndTag(String tagName);
+    //rls  ParsingException parserExpectedEndTag(String tagName);
 
     /**
      * @param e
@@ -302,10 +306,10 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException parserFailed(String elementName);
+    //rls   RuntimeException parserFailed(String elementName);
 
     /** @return  */
-    ParsingException parserUnableParsingNullToken();
+    //rls   ParsingException parserUnableParsingNullToken();
 
     /**
      * @param t
@@ -319,84 +323,84 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException xacmlPDPMessageProcessingError(Throwable t);
+    //rls  RuntimeException xacmlPDPMessageProcessingError(Throwable t);
 
     /**
      * @param policyConfigFileName
      *
      * @return
      */
-    IllegalStateException fileNotLocated(String policyConfigFileName);
+    //rls  IllegalStateException fileNotLocated(String policyConfigFileName);
 
     /**
      * @param string
      *
      * @return
      */
-    IllegalStateException optionNotSet(String option);
+    //rls  IllegalStateException optionNotSet(String option);
 
     /**
      *
      */
-    void stsTokenRegistryNotSpecified();
+    //rls   void stsTokenRegistryNotSpecified();
 
     /** @param tokenRegistryOption */
-    void stsTokenRegistryInvalidType(String tokenRegistryOption);
+    //rls   void stsTokenRegistryInvalidType(String tokenRegistryOption);
 
     /**
      *
      */
-    void stsTokenRegistryInstantiationError();
+    //rls   void stsTokenRegistryInstantiationError();
 
     /**
      *
      */
-    void stsRevocationRegistryNotSpecified();
+    //rls   void stsRevocationRegistryNotSpecified();
 
     /** @param registryOption */
-    void stsRevocationRegistryInvalidType(String registryOption);
+    //rls  void stsRevocationRegistryInvalidType(String registryOption);
 
     /**
      *
      */
-    void stsRevocationRegistryInstantiationError();
+    //rls   void stsRevocationRegistryInstantiationError();
 
     /** @return  */
-    ProcessingException samlAssertionExpiredError();
+    GeneralSecurityException samlAssertionExpiredError();
 
     /** @return  */
-    ProcessingException assertionInvalidError();
+    //rls  ProcessingException assertionInvalidError();
 
     /**
      * @param name
      *
      * @return
      */
-    RuntimeException writerUnknownTypeError(String name);
+    //rls RuntimeException writerUnknownTypeError(String name);
 
     /**
      * @param string
      *
      * @return
      */
-    ProcessingException writerNullValueError(String value);
+    //rls  ProcessingException writerNullValueError(String value);
 
     /**
      * @param value
      *
      * @return
      */
-    RuntimeException writerUnsupportedAttributeValueError(String value);
+    //rls  RuntimeException writerUnsupportedAttributeValueError(String value);
 
     /** @return  */
-    IllegalArgumentException issuerInfoMissingStatusCodeError();
+    //rls   IllegalArgumentException issuerInfoMissingStatusCodeError();
 
     /**
      * @param fqn
      *
      * @return
      */
-    ProcessingException classNotLoadedError(String fqn);
+    //rls   ProcessingException classNotLoadedError(String fqn);
 
     /**
      * @param fqn
@@ -404,7 +408,7 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    ProcessingException couldNotCreateInstance(String fqn, Throwable t);
+    //rls   ProcessingException couldNotCreateInstance(String fqn, Throwable t);
 
     /**
      * @param property
@@ -414,13 +418,13 @@ public interface PicketLinkLogger {
     RuntimeException systemPropertyMissingError(String property);
 
     /** @param t */
-    void samlMetaDataIdentityProviderLoadingError(Throwable t);
+    //rls  void samlMetaDataIdentityProviderLoadingError(Throwable t);
 
     /** @param t */
-    void samlMetaDataServiceProviderLoadingError(Throwable t);
+    //rls   void samlMetaDataServiceProviderLoadingError(Throwable t);
 
     /** @param t */
-    void signatureAssertionValidationError(Throwable t);
+    //rls   void signatureAssertionValidationError(Throwable t);
 
     /** @param id */
     void samlAssertionExpired(String id);
@@ -446,14 +450,14 @@ public interface PicketLinkLogger {
      * @param string
      * @param t
      */
-    void trace(String message, Throwable t);
+    //rls    void trace(String message, Throwable t);
 
     /**
      * @param algo
      *
      * @return
      */
-    RuntimeException signatureUnknownAlgo(String algo);
+    //rls   RuntimeException signatureUnknownAlgo(String algo);
 
     /**
      * @param message
@@ -468,36 +472,36 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    ProcessingException stsNoTokenProviderError(String configuration, String protocolContext);
+    //rls   ProcessingException stsNoTokenProviderError(String configuration, String protocolContext);
 
     /** @param message */
     void debug(String message);
 
     /** @param fileName */
-    void stsConfigurationFileNotFoundTCL(String fileName);
+    //rls   void stsConfigurationFileNotFoundTCL(String fileName);
 
     /** @param fileName */
-    void stsConfigurationFileNotFoundClassLoader(String fileName);
+    //rls   void stsConfigurationFileNotFoundClassLoader(String fileName);
 
     /** @param fileName */
-    void stsUsingDefaultConfiguration(String fileName);
+    //rls   void stsUsingDefaultConfiguration(String fileName);
 
     /** @param fileName */
-    void stsConfigurationFileLoaded(String fileName);
+    //rls   void stsConfigurationFileLoaded(String fileName);
 
     /**
      * @param t
      *
      * @return
      */
-    ConfigurationException stsConfigurationFileParsingError(Throwable t);
+    //rls   ConfigurationException stsConfigurationFileParsingError(Throwable t);
 
     /**
      * @param message
      *
      * @return
      */
-    IOException notSerializableError(String message);
+    //rls   IOException notSerializableError(String message);
 
     /**
      *
@@ -514,7 +518,7 @@ public interface PicketLinkLogger {
     void error(String message);
 
     /** @param t */
-    void xmlCouldNotGetSchema(Throwable t);
+    //rls  void xmlCouldNotGetSchema(Throwable t);
 
     /** @return  */
     boolean isTraceEnabled();
@@ -526,10 +530,10 @@ public interface PicketLinkLogger {
      * @param name
      * @param t
      */
-    void jceProviderCouldNotBeLoaded(String name, Throwable t);
+    //rls    void jceProviderCouldNotBeLoaded(String name, Throwable t);
 
     /** @return  */
-    ProcessingException writerInvalidKeyInfoNullContentError();
+    //rls   ProcessingException writerInvalidKeyInfoNullContentError();
 
     /**
      * @param first
@@ -551,66 +555,66 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException encryptUnknownAlgoError(String certAlgo);
+    //rls   RuntimeException encryptUnknownAlgoError(String certAlgo);
 
     /**
      * @param element
      *
      * @return
      */
-    IllegalStateException domMissingDocElementError(String element);
+    //rls  IllegalStateException domMissingDocElementError(String element);
 
     /**
      * @param element
      *
      * @return
      */
-    IllegalStateException domMissingElementError(String element);
+    //rls   IllegalStateException domMissingElementError(String element);
 
     /** @return  */
-    WebServiceException stsWSInvalidTokenRequestError();
+    //rls   WebServiceException stsWSInvalidTokenRequestError();
 
     /**
      * @param t
      *
      * @return
      */
-    WebServiceException stsWSError(Throwable t);
+    //rls    WebServiceException stsWSError(Throwable t);
 
     /**
      * @param t
      *
      * @return
      */
-    WebServiceException stsWSConfigurationError(Throwable t);
+    //rls    WebServiceException stsWSConfigurationError(Throwable t);
 
     /**
      * @param requestType
      *
      * @return
      */
-    WSTrustException stsWSInvalidRequestTypeError(String requestType);
+    //rls    WSTrustException stsWSInvalidRequestTypeError(String requestType);
 
     /**
      * @param t
      *
      * @return
      */
-    WebServiceException stsWSHandlingTokenRequestError(Throwable t);
+    //rls   WebServiceException stsWSHandlingTokenRequestError(Throwable t);
 
     /**
      * @param t
      *
      * @return
      */
-    WebServiceException stsWSResponseWritingError(Throwable t);
+    //rls   WebServiceException stsWSResponseWritingError(Throwable t);
 
     /**
      * @param t
      *
      * @return
      */
-    RuntimeException stsUnableToConstructKeyManagerError(Throwable t);
+    //rls  RuntimeException stsUnableToConstructKeyManagerError(Throwable t);
 
     /**
      * @param serviceName
@@ -618,43 +622,43 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException stsPublicKeyError(String serviceName, Throwable t);
+    //rls  RuntimeException stsPublicKeyError(String serviceName, Throwable t);
 
     /**
      * @param t
      *
      * @return
      */
-    RuntimeException stsSigningKeyPairError(Throwable t);
+    //rls   RuntimeException stsSigningKeyPairError(Throwable t);
 
     /**
      * @param t
      *
      * @return
      */
-    RuntimeException stsPublicKeyCertError(Throwable t);
+    //rls  RuntimeException stsPublicKeyCertError(Throwable t);
 
     /**
      *
      */
-    void stsTokenTimeoutNotSpecified();
+    //rls   void stsTokenTimeoutNotSpecified();
 
     /**
      * @param t
      *
      * @return
      */
-    WSTrustException wsTrustCombinedSecretKeyError(Throwable t);
+    //rls   WSTrustException wsTrustCombinedSecretKeyError(Throwable t);
 
     /** @return  */
-    WSTrustException wsTrustClientPublicKeyError();
+    //rls    WSTrustException wsTrustClientPublicKeyError();
 
     /**
      * @param t
      *
      * @return
      */
-    WSTrustException stsError(Throwable t);
+    //rls   WSTrustException stsError(Throwable t);
 
     /**
      * @param message
@@ -662,251 +666,251 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    XMLSignatureException signatureInvalidError(String message, Throwable t);
+    //rls    XMLSignatureException signatureInvalidError(String message, Throwable t);
 
     /**
      *
      */
-    void stsSecurityTokenSignatureNotVerified();
+    //rls   void stsSecurityTokenSignatureNotVerified();
 
     /**
      * @param e
      *
      * @return
      */
-    RuntimeException encryptProcessError(Throwable t);
+    //rls   RuntimeException encryptProcessError(Throwable t);
 
     /**
      *
      */
-    void stsSecurityTokenShouldBeEncrypted();
+    //rls    void stsSecurityTokenShouldBeEncrypted();
 
     /**
      * @param password
      *
      * @return
      */
-    RuntimeException unableToDecodePasswordError(String password);
+    //rls   RuntimeException unableToDecodePasswordError(String password);
 
     /**
      * @param configFile
      *
      * @return
      */
-    IllegalStateException couldNotLoadProperties(String configFile);
+    //rls  IllegalStateException couldNotLoadProperties(String configFile);
 
     /**
      * @param t
      *
      * @return
      */
-    WSTrustException stsKeyInfoTypeCreationError(Throwable t);
+    //rls    WSTrustException stsKeyInfoTypeCreationError(Throwable t);
 
     /**
      *
      */
-    void stsSecretKeyNotEncrypted();
+    //rls    void stsSecretKeyNotEncrypted();
 
     /** @return  */
-    LoginException authCouldNotIssueSAMLToken();
+    //rls    LoginException authCouldNotIssueSAMLToken();
 
     /**
      * @param t
      *
      * @return
      */
-    LoginException authLoginError(Throwable t);
+    //rls   LoginException authLoginError(Throwable t);
 
     /**
      * @param e
      *
      * @return
      */
-    IllegalStateException authCouldNotCreateWSTrustClient(Throwable t);
+    //rls   IllegalStateException authCouldNotCreateWSTrustClient(Throwable t);
 
     /** @param id */
-    void samlAssertionWithoutExpiration(String id);
+    //rls   void samlAssertionWithoutExpiration(String id);
 
     /**
      * @param token
      *
      * @return
      */
-    LoginException authCouldNotValidateSAMLToken(Element token);
+    //rls  LoginException authCouldNotValidateSAMLToken(Element token);
 
     /** @return  */
-    LoginException authCouldNotLocateSecurityToken();
+    //rls   LoginException authCouldNotLocateSecurityToken();
 
     /** @return  */
-    ProcessingException wsTrustNullCancelTargetError();
+    //rls   ProcessingException wsTrustNullCancelTargetError();
 
     /**
      * @param t
      *
      * @return
      */
-    ProcessingException samlAssertionMarshallError(Throwable t);
+    //rls   ProcessingException samlAssertionMarshallError(Throwable t);
 
     /** @return  */
-    ProcessingException wsTrustNullRenewTargetError();
+    //rls    ProcessingException wsTrustNullRenewTargetError();
 
     /**
      * @param t
      *
      * @return
      */
-    ProcessingException samlAssertionUnmarshallError(Throwable t);
+    //rls    ProcessingException samlAssertionUnmarshallError(Throwable t);
 
     /** @return  */
-    ProcessingException samlAssertionRevokedCouldNotRenew(String id);
+    //rls   ProcessingException samlAssertionRevokedCouldNotRenew(String id);
 
     /** @return  */
-    ProcessingException wsTrustNullValidationTargetError();
+    //rls    ProcessingException wsTrustNullValidationTargetError();
 
     /** @param attributeProviderClassName */
-    void stsWrongAttributeProviderTypeNotInstalled(String attributeProviderClassName);
+    //rls    void stsWrongAttributeProviderTypeNotInstalled(String attributeProviderClassName);
 
     /** @param t */
-    void attributeProviderInstationError(Throwable t);
+    //rls    void attributeProviderInstationError(Throwable t);
 
     /** @param nodeAsString */
-    void samlAssertion(String nodeAsString);
+    //rls    void samlAssertion(String nodeAsString);
 
     /**
      * @param dce
      *
      * @return
      */
-    RuntimeException wsTrustUnableToGetDataTypeFactory(Throwable t);
+    //rls   RuntimeException wsTrustUnableToGetDataTypeFactory(Throwable t);
 
     /** @return  */
-    ProcessingException wsTrustValidationStatusCodeMissing();
+    GeneralSecurityException wsTrustValidationStatusCodeMissing();
 
     /** @param activeSessionCount */
-    void samlIdentityServerActiveSessionCount(int activeSessionCount);
+    //rls    void samlIdentityServerActiveSessionCount(int activeSessionCount);
 
     /**
      * @param id
      * @param activeSessionCount
      */
-    void samlIdentityServerSessionCreated(String id, int activeSessionCount);
+    //rls   void samlIdentityServerSessionCreated(String id, int activeSessionCount);
 
     /**
      * @param id
      * @param activeSessionCount
      */
-    void samlIdentityServerSessionDestroyed(String id, int activeSessionCount);
+    //rls    void samlIdentityServerSessionDestroyed(String id, int activeSessionCount);
 
     /**
      * @param name
      *
      * @return
      */
-    RuntimeException unknowCredentialType(String name);
+    //rls   RuntimeException unknowCredentialType(String name);
 
     /** @param t */
-    void samlHandlerRoleGeneratorSetupError(Throwable t);
+    //rls   void samlHandlerRoleGeneratorSetupError(Throwable t);
 
     /** @return  */
-    RuntimeException samlHandlerAssertionNotFound();
+    //rls   RuntimeException samlHandlerAssertionNotFound();
 
     /** @return  */
-    ProcessingException samlHandlerAuthnRequestIsNull();
+    //rls    ProcessingException samlHandlerAuthnRequestIsNull();
 
     /** @param t */
-    void samlHandlerAuthenticationError(Throwable t);
+    //rls  void samlHandlerAuthenticationError(Throwable t);
 
     /** @return  */
-    IllegalArgumentException samlHandlerNoAssertionFromIDP();
+    //rls  IllegalArgumentException samlHandlerNoAssertionFromIDP();
 
     /** @return  */
-    ProcessingException samlHandlerNullEncryptedAssertion();
+    //rls   ProcessingException samlHandlerNullEncryptedAssertion();
 
     /** @return  */
-    SecurityException samlHandlerIDPAuthenticationFailedError();
+    //rls    SecurityException samlHandlerIDPAuthenticationFailedError();
 
     /**
      * @param aee
      *
      * @return
      */
-    ProcessingException assertionExpiredError(AssertionExpiredException aee);
+    //rls   ProcessingException assertionExpiredError(AssertionExpiredException aee);
 
     /**
      * @param attrValue
      *
      * @return
      */
-    RuntimeException unsupportedRoleType(Object attrValue);
+    //rls   RuntimeException unsupportedRoleType(Object attrValue);
 
     /**
      * @param inResponseTo
      * @param authnRequestId
      */
-    void samlHandlerFailedInResponseToVerification(String inResponseTo, String authnRequestId);
+    //rls    void samlHandlerFailedInResponseToVerification(String inResponseTo, String authnRequestId);
 
     /** @return  */
-    ProcessingException samlHandlerFailedInResponseToVerificarionError();
+    //rls   ProcessingException samlHandlerFailedInResponseToVerificarionError();
 
     /**
      * @param issuer
      *
      * @return
      */
-    IssuerNotTrustedException samlIssuerNotTrustedError(String issuer);
+    //rls    IssuerNotTrustedException samlIssuerNotTrustedError(String issuer);
 
     /**
      * @param e
      *
      * @return
      */
-    IssuerNotTrustedException samlIssuerNotTrustedException(Throwable t);
+    //rls    IssuerNotTrustedException samlIssuerNotTrustedException(Throwable t);
 
     /** @return  */
-    ConfigurationException samlHandlerTrustElementMissingError();
+    //rls   ConfigurationException samlHandlerTrustElementMissingError();
 
     /** @return  */
-    ProcessingException samlHandlerIdentityServerNotFoundError();
+    //rls   ProcessingException samlHandlerIdentityServerNotFoundError();
 
     /** @return  */
-    ProcessingException samlHandlerPrincipalNotFoundError();
+    //rls  ProcessingException samlHandlerPrincipalNotFoundError();
 
     /**
      *
      */
-    void samlHandlerKeyPairNotFound();
+    //rls   void samlHandlerKeyPairNotFound();
 
     /** @return  */
-    ProcessingException samlHandlerKeyPairNotFoundError();
+    //rls   ProcessingException samlHandlerKeyPairNotFoundError();
 
     /** @param t */
-    void samlHandlerErrorSigningRedirectBindingMessage(Throwable t);
+    //rls   void samlHandlerErrorSigningRedirectBindingMessage(Throwable t);
 
     /**
      * @param t
      *
      * @return
      */
-    RuntimeException samlHandlerSigningRedirectBindingMessageError(Throwable t);
+    //rls   RuntimeException samlHandlerSigningRedirectBindingMessageError(Throwable t);
 
     /** @return  */
-    SignatureValidationException samlHandlerSignatureValidationFailed();
+    //rls   SignatureValidationException samlHandlerSignatureValidationFailed();
 
     /** @param t */
-    void samlHandlerErrorValidatingSignature(Throwable t);
+    //rls   void samlHandlerErrorValidatingSignature(Throwable t);
 
     /** @return  */
-    ProcessingException samlHandlerInvalidSignatureError();
+    //rls   ProcessingException samlHandlerInvalidSignatureError();
 
     /** @return  */
-    ProcessingException samlHandlerSignatureNotPresentError();
+    //rls   ProcessingException samlHandlerSignatureNotPresentError();
 
     /**
      * @param t
      *
      * @return
      */
-    ProcessingException samlHandlerSignatureValidationError(Throwable t);
+    //rls   ProcessingException samlHandlerSignatureValidationError(Throwable t);
 
     /** @param t */
     void error(Throwable t);
@@ -916,203 +920,199 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    RuntimeException samlHandlerChainProcessingError(Throwable t);
+    //rls   RuntimeException samlHandlerChainProcessingError(Throwable t);
 
     /** @return  */
-    TrustKeyConfigurationException trustKeyManagerMissing();
+    //rls  TrustKeyConfigurationException trustKeyManagerMissing();
 
     /** @param rte */
-    void samlBase64DecodingError(Throwable t);
+    //rls  void samlBase64DecodingError(Throwable t);
 
     /** @param t */
-    void samlParsingError(Throwable t);
+    //rls   void samlParsingError(Throwable t);
 
     /** @param t */
-    void trace(Throwable t);
+    //rls   void trace(Throwable t);
 
     /**
      *
      */
-    void mappingContextNull();
+    //rls   void mappingContextNull();
 
     /** @param t */
-    void attributeManagerError(Throwable t);
+    //rls    void attributeManagerError(Throwable t);
 
     /**
      *
      */
-    void couldNotObtainSecurityContext();
+    //rls  void couldNotObtainSecurityContext();
 
     /**
      * @param t
      *
      * @return
      */
-    LoginException authFailedToCreatePrincipal(Throwable t);
+    //rls   LoginException authFailedToCreatePrincipal(Throwable t);
 
     /**
      * @param class1
      *
      * @return
      */
-    LoginException authSharedCredentialIsNotSAMLCredential(String className);
+    //rls  LoginException authSharedCredentialIsNotSAMLCredential(String className);
 
     /** @return  */
-    LoginException authSTSConfigFileNotFound();
+    //rls   LoginException authSTSConfigFileNotFound();
 
     /**
      * @param t
      *
      * @return
      */
-    LoginException authErrorHandlingCallback(Throwable t);
+    //rls  LoginException authErrorHandlingCallback(Throwable t);
 
-    /** @return  */
-    LoginException authInvalidSAMLAssertionBySTS();
-
-    /**
-     * @param t
-     *
-     * @return
-     */
-    LoginException authAssertionValidationError(Throwable t);
+    //rls   LoginException authInvalidSAMLAssertionBySTS();
 
     /**
      * @param t
      *
      * @return
      */
-    LoginException authFailedToParseSAMLAssertion(Throwable t);
+    //rls   LoginException authAssertionValidationError(Throwable t);
+
+    /**
+     * @param t
+     *
+     * @return
+     */
+    //rls   LoginException authFailedToParseSAMLAssertion(Throwable t);
 
     /** @param t */
     void samlAssertionPasingFailed(Throwable t);
 
-    LoginException authNullKeyStoreFromSecurityDomainError(String name);
+    //rls   LoginException authNullKeyStoreFromSecurityDomainError(String name);
 
-    LoginException authNullKeyStoreAliasFromSecurityDomainError(String name);
+    //rls  LoginException authNullKeyStoreAliasFromSecurityDomainError(String name);
 
-    LoginException authNoCertificateFoundForAliasError(String alias, String name);
+    //rls LoginException authNoCertificateFoundForAliasError(String alias, String name);
 
-    LoginException authSAMLInvalidSignatureError();
+    //rls LoginException authSAMLInvalidSignatureError();
 
-    LoginException authSAMLAssertionExpiredError();
-
-    /** @param t */
-    void authSAMLAssertionIssuingFailed(Throwable t);
+    //rls  LoginException authSAMLAssertionExpiredError();
 
     /** @param t */
-    void jbossWSUnableToCreateBinaryToken(Throwable t);
+    //rls  void authSAMLAssertionIssuingFailed(Throwable t);
+
+    /** @param t */
+    //rls  void jbossWSUnableToCreateBinaryToken(Throwable t);
 
     /**
      *
      */
-    void jbossWSUnableToCreateSecurityToken();
+    //rls void jbossWSUnableToCreateSecurityToken();
 
-    /** @param ignore */
-    void jbossWSUnableToWriteSOAPMessage(Throwable t);
+    //rls  void jbossWSUnableToWriteSOAPMessage(Throwable t);
 
     /** @return  */
     RuntimeException jbossWSUnableToLoadJBossWSSEConfigError();
 
     /** @return  */
-    RuntimeException jbossWSAuthorizationFailed();
+    //rls   RuntimeException jbossWSAuthorizationFailed();
 
     /** @param t */
     void jbossWSErrorGettingOperationName(Throwable t);
 
     /** @return  */
-    LoginException authSAMLCredentialNotAvailable();
+    //rls  LoginException authSAMLCredentialNotAvailable();
 
     /**
      * @param token
      * @param t
      *
      * @return
-     */
-    RuntimeException authUnableToInstantiateHandler(String token, Throwable t);
+    //rls  RuntimeException authUnableToInstantiateHandler(String token, Throwable t);
 
     /**
      * @param e1
      *
      * @return
-     */
-    RuntimeException jbossWSUnableToCreateSSLSocketFactory(Throwable t);
+    //rls   RuntimeException jbossWSUnableToCreateSSLSocketFactory(Throwable t);
 
     /** @return  */
-    RuntimeException jbossWSUnableToFindSSLSocketFactory();
+    //rls   RuntimeException jbossWSUnableToFindSSLSocketFactory();
 
     /** @return  */
-    RuntimeException authUnableToGetIdentityFromSubject();
+    //rls   RuntimeException authUnableToGetIdentityFromSubject();
 
     /** @return  */
-    RuntimeException authSAMLAssertionNullOrEmpty();
+    //rls   RuntimeException authSAMLAssertionNullOrEmpty();
 
     /** @return  */
-    ProcessingException jbossWSUncheckedAndRolesCannotBeTogether();
+    //rls ProcessingException jbossWSUncheckedAndRolesCannotBeTogether();
 
     /** @param t */
-    void samlIDPHandlingSAML11Error(Throwable t);
+    //rls  void samlIDPHandlingSAML11Error(Throwable t);
 
     /** @return  */
-    GeneralSecurityException samlIDPValidationCheckFailed();
+    //rls   GeneralSecurityException samlIDPValidationCheckFailed();
 
     /** @param t */
-    void samlIDPRequestProcessingError(Throwable t);
+    //rls   void samlIDPRequestProcessingError(Throwable t);
 
     /** @param t */
-    void samlIDPUnableToSetParticipantStackUsingDefault(Throwable t);
+    //rls   void samlIDPUnableToSetParticipantStackUsingDefault(Throwable t);
 
     /** @param t */
-    void samlHandlerConfigurationError(Throwable t);
+    //rls   void samlHandlerConfigurationError(Throwable t);
 
     /** @param canonicalizationMethod */
-    void samlIDPSettingCanonicalizationMethod(String canonicalizationMethod);
+    //rls   void samlIDPSettingCanonicalizationMethod(String canonicalizationMethod);
 
     /**
      * @param t
      *
      * @return
      */
-    RuntimeException samlIDPConfigurationError(Throwable t);
+    //rls   RuntimeException samlIDPConfigurationError(Throwable t);
 
     /**
      * @param configFile
      *
      * @return
      */
-    RuntimeException configurationFileMissing(String configFile);
+    //rls  RuntimeException configurationFileMissing(String configFile);
 
     /**
      *
      */
-    void samlIDPInstallingDefaultSTSConfig();
+    //rls   void samlIDPInstallingDefaultSTSConfig();
 
-    void samlSPFallingBackToLocalFormAuthentication();
+    //rls   void samlSPFallingBackToLocalFormAuthentication();
 
     /**
      * @param ex
      *
      * @return
      */
-    IOException unableLocalAuthentication(Throwable t);
+    //rls   IOException unableLocalAuthentication(Throwable t);
 
     /**
      *
      */
-    void samlSPUnableToGetIDPDescriptorFromMetadata();
+    //rls  void samlSPUnableToGetIDPDescriptorFromMetadata();
 
     /**
      * @param t
      *
      * @return
      */
-    RuntimeException samlSPConfigurationError(Throwable t);
+    //rls   RuntimeException samlSPConfigurationError(Throwable t);
 
     /** @param canonicalizationMethod */
-    void samlSPSettingCanonicalizationMethod(String canonicalizationMethod);
+    //rls   void samlSPSettingCanonicalizationMethod(String canonicalizationMethod);
 
     /** @param logOutPage */
-    void samlSPCouldNotDispatchToLogoutPage(String logOutPage);
+    //rls   void samlSPCouldNotDispatchToLogoutPage(String logOutPage);
 
     /**
      * <p>Logs the implementation being used to log messages and exceptions.</p>
@@ -1124,14 +1124,14 @@ public interface PicketLinkLogger {
     /**
      *
      */
-    void samlResponseFromIDPParsingFailed();
+    //rls   void samlResponseFromIDPParsingFailed();
 
     /**
      * @param t
      *
      * @return
      */
-    ConfigurationException auditSecurityDomainNotFound(Throwable t);
+    //rls   ConfigurationException auditSecurityDomainNotFound(Throwable t);
 
     /**
      * @param location
@@ -1139,85 +1139,85 @@ public interface PicketLinkLogger {
      *
      * @return
      */
-    ConfigurationException auditAuditManagerNotFound(String location, Throwable t);
+    //rls   ConfigurationException auditAuditManagerNotFound(String location, Throwable t);
 
     /** @return  */
-    IssueInstantMissingException samlIssueInstantMissingError();
+    //rls   IssueInstantMissingException samlIssueInstantMissingError();
 
     /**
      * @param response
      *
      * @return
      */
-    RuntimeException samlSPResponseNotCatalinaResponseError(Object response);
+    //rls   RuntimeException samlSPResponseNotCatalinaResponseError(Object response);
 
     /** @param t */
-    void samlLogoutError(Throwable t);
+    //rls   void samlLogoutError(Throwable t);
 
     /** @param t */
-    void samlErrorPageForwardError(String errorPage, Throwable t);
+    //rls   void samlErrorPageForwardError(String errorPage, Throwable t);
 
     /** @param t */
-    void samlSPHandleRequestError(Throwable t);
+    //rls   void samlSPHandleRequestError(Throwable t);
 
     /**
      * @param t
      *
      * @return
      */
-    IOException samlSPProcessingExceptionError(Throwable t);
+    //rls   IOException samlSPProcessingExceptionError(Throwable t);
 
     /** @return  */
-    IllegalArgumentException samlInvalidProtocolBinding();
+    //rls    IllegalArgumentException samlInvalidProtocolBinding();
 
     /** @return  */
-    IllegalStateException samlHandlerServiceProviderConfigNotFound();
+    //rls   IllegalStateException samlHandlerServiceProviderConfigNotFound();
 
     /**
      *
      */
-    void samlSecurityTokenAlreadyPersisted(String id);
+    //rls  void samlSecurityTokenAlreadyPersisted(String id);
 
     /** @param id */
-    void samlSecurityTokenNotFoundInRegistry(String id);
+    //rls   void samlSecurityTokenNotFoundInRegistry(String id);
 
     IllegalArgumentException samlMetaDataFailedToCreateCacheDuration(String timeValue);
 
-    ConfigurationException samlMetaDataNoIdentityProviderDefined();
+    //rls   ConfigurationException samlMetaDataNoIdentityProviderDefined();
 
-    ConfigurationException samlMetaDataNoServiceProviderDefined();
+    //rls   ConfigurationException samlMetaDataNoServiceProviderDefined();
 
     ConfigurationException securityDomainNotFound();
 
-    void authenticationManagerError(ConfigurationException e);
+    //rls   void authenticationManagerError(ConfigurationException e);
 
-    void authorizationManagerError(ConfigurationException e);
+    //rls    void authorizationManagerError(ConfigurationException e);
 
-    IllegalStateException jbdcInitializationError(Throwable throwable);
+    //rls   IllegalStateException jbdcInitializationError(Throwable throwable);
 
-    RuntimeException errorUnmarshallingToken(Throwable e);
+    //rls  RuntimeException errorUnmarshallingToken(Throwable e);
 
-    RuntimeException runtimeException(String msg, Throwable e);
+    //rls  RuntimeException runtimeException(String msg, Throwable e);
 
-    IllegalStateException datasourceIsNull();
+    //rls   IllegalStateException datasourceIsNull();
 
-    IllegalArgumentException cannotParseParameterValue(String parameter, Throwable e);
+    //rls   IllegalArgumentException cannotParseParameterValue(String parameter, Throwable e);
 
-    RuntimeException cannotGetFreeClientPoolKey(String key);
+    //rls   RuntimeException cannotGetFreeClientPoolKey(String key);
 
-    RuntimeException cannotGetSTSConfigByKey(String key);
+    //rls  RuntimeException cannotGetSTSConfigByKey(String key);
 
-    RuntimeException cannotGetUsedClientsByKey(String key);
+    //rls  RuntimeException cannotGetUsedClientsByKey(String key);
 
-    RuntimeException removingNonExistingClientFromUsedClientsByKey(String key);
+    //rls  RuntimeException removingNonExistingClientFromUsedClientsByKey(String key);
 
-    RuntimeException freePoolAlreadyContainsGivenKey(String key);
+    //rls  RuntimeException freePoolAlreadyContainsGivenKey(String key);
 
-    RuntimeException maximumNumberOfClientsReachedforPool(String max);
+    //rls  RuntimeException maximumNumberOfClientsReachedforPool(String max);
 
-    RuntimeException cannotSetMaxPoolSizeToNegative(String max);
+    //rls  RuntimeException cannotSetMaxPoolSizeToNegative(String max);
 
     RuntimeException parserFeatureNotSupported(String feature);
 
-    ProcessingException samlAssertionWrongAudience(String serviceURL);
+    //rls   ProcessingException samlAssertionWrongAudience(String serviceURL);
 }

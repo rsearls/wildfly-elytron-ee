@@ -19,8 +19,10 @@ package org.picketlink.common.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+/** rls
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+**/
 import javax.crypto.spec.PBEParameterSpec;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -33,6 +35,7 @@ import java.security.GeneralSecurityException;
  * @since May 25, 2010
  */
 public class PBEUtils {
+    /** rls
     public static byte[] encode(byte[] secret, String cipherAlgorithm, SecretKey cipherKey, PBEParameterSpec cipherSpec)
             throws Exception {
         Cipher cipher = Cipher.getInstance(cipherAlgorithm);
@@ -48,6 +51,7 @@ public class PBEUtils {
         return b64;
     }
 
+     **/
     public static byte[] decode(byte[] secret, String cipherAlgorithm, SecretKey cipherKey, PBEParameterSpec cipherSpec)
             throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance(cipherAlgorithm);
@@ -55,14 +59,13 @@ public class PBEUtils {
         byte[] decode = cipher.doFinal(secret);
         return decode;
     }
-
     public static String decode64(String secret, String cipherAlgorithm, SecretKey cipherKey, PBEParameterSpec cipherSpec)
             throws GeneralSecurityException, UnsupportedEncodingException {
         byte[] encoding = Base64.decode(secret);
         byte[] decode = decode(encoding, cipherAlgorithm, cipherKey, cipherSpec);
         return new String(decode, "UTF-8");
     }
-
+/** rls
     public static void main(String[] args) throws Exception {
         if (args.length != 3) {
             System.err.println("Encrypt a password" + "Usage: PBEUtils salt count domain-password password"
@@ -82,4 +85,5 @@ public class PBEUtils {
         String encodedPassword = encode64(passwordToEncode, "PBEwithMD5andDES", cipherKey, cipherSpec);
         System.err.println("Encoded password: MASK-" + encodedPassword);
     }
+    **/
 }

@@ -21,10 +21,10 @@
  */
 package org.wildfly.security.ws.trust.jbossws.handler;
 
-import org.picketlink.common.PicketLinkLogger;
-import org.picketlink.common.PicketLinkLoggerFactory;
-import org.picketlink.common.exceptions.ConfigurationException;
-import org.picketlink.common.util.DocumentUtil;
+import org.wildfly.security.ws.common.PicketLinkLogger;
+import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import org.wildfly.security.ws.common.exceptions.ConfigurationException;
+import org.wildfly.security.ws.common.util.DocumentUtil;
 import org.wildfly.security.ws.trust.jbossws.Constants;
 import org.wildfly.security.ws.trust.jbossws.Util;
 import org.w3c.dom.Document;

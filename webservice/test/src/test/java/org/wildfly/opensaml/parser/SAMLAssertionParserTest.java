@@ -20,7 +20,7 @@ import org.opensaml.core.config.InitializationService;
 import org.opensaml.core.config.InitializationException;
 import org.opensaml.core.xml.schema.XSString;
 
-import org.picketlink.identity.federation.core.saml.v2.util.XMLTimeUtil;
+import org.wildfly.security.ws.federation.core.saml.v2.util.XMLTimeUtil;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

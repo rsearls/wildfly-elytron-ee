@@ -23,7 +23,7 @@ package org.wildfly.security.ws.trust.jbossws.handler;
 
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.cxf.security.SecurityContext;
-import org.picketlink.identity.federation.core.wstrust.SamlCredential;
+import org.wildfly.security.ws.federation.core.wstrust.SamlCredential;
 import org.wildfly.security.authz.Roles;
 
 import javax.security.auth.Subject;
@@ -40,7 +40,7 @@ import java.security.Principal;
 public class SAML2Handler extends AbstractSAML2Handler {
 
     /* (non-Javadoc)
-     * @see org.wildfly.security.ws.trust.handler.jbossws.AbstractSAML2Handler#propagateSubject(org.picketlink.identity.federation.core.wstrust.SamlCredential, javax.security.auth.Subject, java.security.Principal)
+     * @see org.wildfly.security.ws.trust.handler.jbossws.AbstractSAML2Handler#propagateSubject(org.wildfly.security.ws.federation.wstrust.core.SamlCredential, javax.security.auth.Subject, java.security.Principal)
      */
     @Override
     protected void createSecurityContext(SamlCredential credential, final Subject theSubject, final Principal principal) {

@@ -21,10 +21,10 @@
  */
 package org.wildfly.security.ws.trust.jbossws.handler;
 
-import org.picketlink.common.constants.JBossSAMLURIConstants;
-import org.picketlink.common.util.StringUtil;
-import org.picketlink.identity.federation.core.saml.v2.util.AssertionUtil;
-import org.picketlink.identity.federation.core.wstrust.SamlCredential;
+import org.wildfly.security.ws.common.constants.JBossSAMLURIConstants;
+import org.wildfly.security.ws.common.util.StringUtil;
+import org.wildfly.security.ws.federation.core.saml.v2.util.AssertionUtil;
+import org.wildfly.security.ws.federation.core.wstrust.SamlCredential;
 import org.wildfly.security.ws.trust.jbossws.Util;
 
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;

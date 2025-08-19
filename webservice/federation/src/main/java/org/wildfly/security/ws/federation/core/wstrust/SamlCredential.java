@@ -15,15 +15,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.picketlink.identity.federation.core.wstrust;
+package org.wildfly.security.ws.federation.core.wstrust;
 
-import org.picketlink.common.PicketLinkLogger;
-import org.picketlink.common.PicketLinkLoggerFactory;
-import org.picketlink.common.exceptions.ConfigurationException;
-import org.picketlink.common.exceptions.ParsingException;
-import org.picketlink.common.util.DocumentUtil;
-import org.picketlink.common.util.StringUtil;
-import org.picketlink.common.util.TransformerUtil;
+import org.wildfly.security.ws.common.PicketLinkLogger;
+import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import org.wildfly.security.ws.common.exceptions.ConfigurationException;
+import org.wildfly.security.ws.common.exceptions.ParsingException;
+import org.wildfly.security.ws.common.util.DocumentUtil;
+import org.wildfly.security.ws.common.util.StringUtil;
+import org.wildfly.security.ws.common.util.TransformerUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

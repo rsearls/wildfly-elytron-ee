@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.picketlink.identity.federation.core.saml.v2.util;
+package org.wildfly.security.ws.federation.core.saml.v2.util;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;

@@ -15,14 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.picketlink.identity.federation.core.saml.v2.util;
+package org.wildfly.security.ws.federation.core.saml.v2.util;
 
-import org.picketlink.common.PicketLinkLogger;
-import org.picketlink.common.PicketLinkLoggerFactory;
-import org.picketlink.common.constants.GeneralConstants;
-import org.picketlink.common.exceptions.ConfigurationException;
-import org.picketlink.common.exceptions.ParsingException;
-import org.picketlink.common.util.SystemPropertiesUtil;
+import org.wildfly.security.ws.common.PicketLinkLogger;
+import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import org.wildfly.security.ws.common.constants.GeneralConstants;
+import org.wildfly.security.ws.common.exceptions.ConfigurationException;
+import org.wildfly.security.ws.common.exceptions.ParsingException;
+import org.wildfly.security.ws.common.util.SystemPropertiesUtil;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;

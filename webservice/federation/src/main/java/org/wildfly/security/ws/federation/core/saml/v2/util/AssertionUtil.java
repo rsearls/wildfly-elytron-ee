@@ -19,11 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.picketlink.identity.federation.core.saml.v2.util;
+package org.wildfly.security.ws.federation.core.saml.v2.util;
 
-import org.picketlink.common.PicketLinkLogger;
-import org.picketlink.common.PicketLinkLoggerFactory;
-import org.picketlink.common.exceptions.ConfigurationException;
+import org.wildfly.security.ws.common.PicketLinkLogger;
+import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Conditions;

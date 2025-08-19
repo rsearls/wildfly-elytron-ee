@@ -21,15 +21,10 @@
  */
 package org.picketlink.trust.jbossws.handler;
 
-//rls import org.jboss.security.SecurityContext;
 import org.picketlink.common.constants.JBossSAMLURIConstants;
 import org.picketlink.common.util.StringUtil;
-//rls import org.picketlink.identity.federation.bindings.jboss.subject.PicketLinkPrincipal;
 import org.picketlink.identity.federation.core.saml.v2.util.AssertionUtil;
 import org.picketlink.identity.federation.core.wstrust.SamlCredential;
-//rls import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
-//rls import org.picketlink.identity.federation.saml.v2.assertion.AssertionType;
-//rls import org.picketlink.trust.jbossws.SAML2Constants;
 import org.picketlink.trust.jbossws.Util;
 
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
@@ -41,20 +36,17 @@ import org.opensaml.core.config.ConfigurationService;
 import org.opensaml.core.config.InitializationService;
 import org.opensaml.core.config.InitializationException;
 
-//rls import org.wildfly.security.authz.Roles;
 import org.wildfly.security.auth.principal.NamePrincipal;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-// rls import org.jboss.security.SubjectInfo;
 import javax.security.auth.Subject;
 import javax.xml.namespace.QName;
 import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.handler.soap.SOAPMessageContext;
 import java.security.Principal;
-//rls import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,14 +106,10 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
             UnmarshallerFactory unmarshallerFactory = XMLObjectProviderRegistrySupport.getUnmarshallerFactory();
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(assertionElement);
 
-
-            //rls AssertionType assertionType = null;
-            //rls Assertion assertionType = assertion;
             Assertion assertion = null;
             try {
                 // Unmarshall the Element into an Assertion object
                 assertion = (Assertion) unmarshaller.unmarshall(assertionElement);
-                //rls assertionType = SAMLUtil.fromElement(assertion);  // rls parse element into Object
                 if (AssertionUtil.hasExpired(assertion)) {
                     throw new RuntimeException(logger.samlAssertionExpiredError());
                 }
@@ -133,17 +121,11 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
             if (logger.isTraceEnabled()) {
                 logger.trace("Assertion included in SOAP payload: " + credential.getAssertionAsString());
             }
-            /** rls
-            Element subject = Util.findElement(assertion, new QName(assertionNS, "Subject"));
-            Element nameID = Util.findElement(subject, new QName(assertionNS, "NameID"));
-            String username = getUsername(nameID);
-            **/
+
             String username = assertion.getSubject().getNameID().getValue();
 
             Subject theSubject = new Subject();
             NamePrincipal principal = new NamePrincipal(username);
-
-            //rls createSecurityContext(credential, theSubject, principal);
 
             if (assertion != null) {
                 List<String> roleKeys = new ArrayList<String>();
@@ -157,9 +139,7 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
                 List<String> roles = AssertionUtil.getRoles(assertion, roleKeys);
                 if (roles.size() > 0) {
                     logger.trace("Roles in the assertion: " + roles);
-                    /** rls
-                    Group roleGroup = SecurityActions.group(roles);
-                    **/
+
                     for (String role : roles) {
                         theSubject.getPrincipals().add(new NamePrincipal(role));
                     }
@@ -181,10 +161,6 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
      * @param principal
      */
     protected void createSecurityContext(SamlCredential credential, Subject theSubject, Principal principal) {
-        /** rls
-         SecurityContext sc = SecurityActions.createSecurityContext(principal, credential, theSubject);
-         SecurityActions.setSecurityContext(sc);
-         **/
         // rls  This is the object that gets created by the SecurityContextFactory and
         //      registered with the SecurityContext.  TBD how to make it accessible when
         //      needed

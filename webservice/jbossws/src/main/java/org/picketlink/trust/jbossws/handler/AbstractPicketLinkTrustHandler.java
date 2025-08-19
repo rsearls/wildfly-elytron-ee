@@ -21,13 +21,10 @@
  */
 package org.picketlink.trust.jbossws.handler;
 
-//rls import org.jboss.security.SecurityConstants;
 import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;
-//rls import org.picketlink.common.exceptions.ProcessingException;
 import org.picketlink.common.util.DocumentUtil;
-//rls import org.picketlink.identity.federation.core.wstrust.SamlCredential;
 import org.picketlink.trust.jbossws.Constants;
 import org.picketlink.trust.jbossws.Util;
 import org.w3c.dom.Document;
@@ -38,7 +35,6 @@ import org.w3c.dom.NodeList;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-//rls import javax.security.auth.Subject;
 import jakarta.servlet.ServletContext;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.handler.LogicalMessageContext;
@@ -65,10 +61,6 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
     protected static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
 
     protected static Set<QName> headers;
-    /** rls
-    protected static final String SEC_MGR_LOOKUP = "java:jboss/jaas/"; // rls SecurityConstants.JAAS_CONTEXT_ROOT;
-    protected static final String AUTHZ_MGR_LOOKUP = "java:comp/env/security/authorizationMgr";
-    **/
     private String securityDomainName;
 
     static {

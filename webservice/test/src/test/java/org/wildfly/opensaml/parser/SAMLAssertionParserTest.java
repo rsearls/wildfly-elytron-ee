@@ -25,7 +25,6 @@ import org.picketlink.identity.federation.core.saml.v2.util.XMLTimeUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-//rls import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;

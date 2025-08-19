@@ -25,7 +25,6 @@ import org.picketlink.common.exceptions.ParsingException;
 import org.picketlink.common.util.SystemPropertiesUtil;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -96,7 +95,6 @@ public class XMLTimeUtil {
      *
      * @throws ConfigurationException
      */
-    /** rls  OBSOLETE **/
     public static XMLGregorianCalendar getIssueInstant(String timezone) throws ConfigurationException {
         TimeZone tz = TimeZone.getTimeZone(timezone);
         DatatypeFactory dtf;
@@ -114,18 +112,6 @@ public class XMLTimeUtil {
 
     public static Instant getIssueInstant(ZoneId timezone) throws ConfigurationException {
         return ZonedDateTime.now(timezone).toInstant();
-    }
-
-    /**
-     * Get the current instant of time
-     *
-     * @return
-     *
-     * @throws ConfigurationException
-     */
-    /** rls OBSOLETE **/
-    public static XMLGregorianCalendar getIssueInstant() throws ConfigurationException {
-        return getIssueInstant(getCurrentTimeZoneID());
     }
 
     public static String getCurrentTimeZoneID() {
@@ -162,36 +148,6 @@ public static ZoneId getCurrentZoneID() {
      */
     public static long inMilis(int valueInMins) {
         return valueInMins * 60 * 1000;
-    }
-
-    /**
-     * Validate that the current time falls between the two boundaries
-     *
-     * @param now
-     * @param notbefore
-     * @param notOnOrAfter
-     *
-     * @return
-     */
-    /** rls OBSOLETE **/
-    public static boolean isValid(XMLGregorianCalendar now, XMLGregorianCalendar notbefore, XMLGregorianCalendar notOnOrAfter) {
-        int val = 0;
-
-        if (notbefore != null) {
-            val = notbefore.compare(now);
-
-            if (val == DatatypeConstants.INDETERMINATE || val == DatatypeConstants.GREATER)
-                return false;
-        }
-
-        if (notOnOrAfter != null) {
-            val = notOnOrAfter.compare(now);
-
-            if (val != DatatypeConstants.GREATER)
-                return false;
-        }
-
-        return true;
     }
 
     public static boolean isValid(Instant now, Instant notbefore, Instant notOnOrAfter) {

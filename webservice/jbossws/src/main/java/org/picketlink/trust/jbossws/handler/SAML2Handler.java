@@ -28,10 +28,6 @@ import org.wildfly.security.authz.Roles;
 
 import javax.security.auth.Subject;
 import java.security.Principal;
-/** rls
-import java.security.acl.Group;
-import java.util.Enumeration;
-**/
 
 /**
  * <p>implementation for {@link AbstractSAML2Handler} specific for the JBoss AS7 binding.</p>
@@ -71,13 +67,7 @@ public class SAML2Handler extends AbstractSAML2Handler {
                 if (theSubject == null || theSubject.getPrincipals().size() <= 1) {
                     return false;
                 }
-                /** rls
-                for (Principal principal : theSubject.getPrincipals()) {
-                    if (principal instanceof Group && checkGroup((Group) principal, role)) {
-                        return true;
-                    }
-                }
-                **/
+
                 for (Principal principal : theSubject.getPrincipals()) {
                     if (principal instanceof Roles) {
                         if (((Roles)principal).contains(role)) {
@@ -93,21 +83,4 @@ public class SAML2Handler extends AbstractSAML2Handler {
             }
         };
     }
-
-    /** rls
-    protected boolean checkGroup(Group group, String role) {
-        if (group.getName().equals(role)) {
-            return true;
-        }
-
-        for (Enumeration<? extends Principal> members = group.members(); members.hasMoreElements(); ) {
-            // this might be a plain role but could represent a group consisting of other groups/roles
-            Principal member = members.nextElement();
-            if (member.getName().equals(role) || member instanceof Group && checkGroup((Group) member, role)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    **/
 }

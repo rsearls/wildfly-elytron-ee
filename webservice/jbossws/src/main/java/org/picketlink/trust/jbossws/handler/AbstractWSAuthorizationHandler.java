@@ -20,22 +20,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.picketlink.trust.jbossws.handler;
-/** rls
-import org.jboss.security.AuthorizationManager;
-import org.jboss.security.SecurityConstants;
-import org.jboss.security.SecurityContext;
-import org.jboss.security.SimplePrincipal;
-import org.jboss.security.callbacks.SecurityContextCallbackHandler;
-import org.picketlink.common.exceptions.ConfigurationException;
-import org.picketlink.common.exceptions.ProcessingException;
-import org.picketlink.trust.jbossws.util.JBossWSNativeStackUtil;
-import org.picketlink.trust.jbossws.util.JBossWSSERoleExtractor;
-**/
+
 import org.wildfly.security.auth.principal.NamePrincipal;
 
 import org.w3c.dom.Node;
 
-//rls import javax.security.auth.Subject;
 import jakarta.servlet.ServletContext;
 import javax.xml.namespace.QName;
 import jakarta.xml.soap.SOAPBody;
@@ -185,19 +174,4 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
         }
         return null;
     }
-
-    /**
-     * <p>Returns the {@link AuthorizationManager} associated with the application's security domain. </p>
-     *
-     * @param msgContext
-     *
-     * @return
-     *
-     * @throws ConfigurationException
-     */
-    /** rls
-    protected AuthorizationManager getAuthorizationManager(MessageContext msgContext) throws ConfigurationException {
-        return (AuthorizationManager) lookupJNDI(SecurityConstants.JAAS_CONTEXT_ROOT + getSecurityDomainName(msgContext) + "/authorizationMgr");
-    }
-    **/
 }

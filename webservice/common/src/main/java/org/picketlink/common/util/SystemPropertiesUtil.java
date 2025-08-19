@@ -47,13 +47,6 @@ public class SystemPropertiesUtil {
     };
 
     /**
-     * No-op call such that the default system properties are set
-     */
-    /** rls
-    public static void ensure() {
-    }
-**/
-    /**
      * Get the System Property
      * @param key key of the system property
      * @param defaultValue default value to be returned if the system property is not set

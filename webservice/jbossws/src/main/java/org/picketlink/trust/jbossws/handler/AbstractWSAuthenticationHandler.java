@@ -21,27 +21,10 @@
  */
 package org.picketlink.trust.jbossws.handler;
 
-/** rls
-import org.jboss.security.AuthenticationManager;
-import org.jboss.security.SecurityConstants;
-import org.jboss.security.SecurityContext;
-import org.jboss.security.SecurityContextAssociation;
-import org.jboss.security.identity.Identity;
-import org.jboss.security.identity.extensions.CredentialIdentity;
-import org.picketlink.common.ErrorCodes;
-import org.picketlink.common.exceptions.ConfigurationException;
- **/
-
 import io.undertow.security.api.SecurityContext;
 import io.undertow.servlet.spec.HttpServletRequestImpl;
 import io.undertow.server.HttpServerExchange;
 
-/** rls
-import jakarta.servlet.http.HttpServletRequest;
-import javax.security.auth.Subject;
-import java.security.Principal;
-import java.util.Iterator;
-**/
 import jakarta.xml.ws.handler.MessageContext;
 
 /**
@@ -80,61 +63,6 @@ public abstract class AbstractWSAuthenticationHandler extends AbstractPicketLink
             check for authentication.
          */
 
-
-
-        /** rls
-        AuthenticationManager authenticationManager = null;
-
-        try {
-            authenticationManager = getAuthenticationManager(msgContext);
-        } catch (ConfigurationException e) {
-            logger.authenticationManagerError(e);
-            throw new RuntimeException(e);
-        }
-
-        Principal principal = null;
-        Object credential = null;
-        Iterator<Identity> iterator = SecurityContextAssociation.getSecurityContext().getSubjectInfo().getIdentities()
-            .iterator();
-
-        while (iterator.hasNext()) {
-            CredentialIdentity identity = (CredentialIdentity) iterator.next();
-
-            principal = identity.asPrincipal();
-            credential = identity.getCredential();
-        }
-
-        Subject subject = new Subject();
-
-        if (authenticationManager.isValid(principal, credential, subject) == false) {
-            String msg = ErrorCodes.PROCESSING_EXCEPTION + "Authentication failed, principal=" + principal;
-            logger.error(msg);
-            SecurityException e = new SecurityException(msg);
-            throw new RuntimeException(e);
-        }
-
-        logger.trace("Successfully Authenticated:Principal = " + principal + "  ::subject = " + subject);
-
-        SecurityContext sc = SecurityActions.createSecurityContext(principal, credential, subject);
-        SecurityActions.setSecurityContext(sc);
-        **/
         return true;
     }
-
-    /**
-     * <p>Returns the {@link AuthenticationManager} associated with the application's security domain.</p>
-     *
-     * @param msgContext
-     *
-     * @return
-     *
-     * @throws ConfigurationException
-     */
-    /** rls
-    protected AuthenticationManager getAuthenticationManager(MessageContext msgContext) throws ConfigurationException {
-        String securityDomainName = getSecurityDomainName(msgContext);
-
-        return (AuthenticationManager) lookupJNDI(SecurityConstants.JAAS_CONTEXT_ROOT + securityDomainName);
-    }
-    **/
 }

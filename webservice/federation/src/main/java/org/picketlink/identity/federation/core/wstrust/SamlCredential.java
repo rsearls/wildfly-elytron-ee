@@ -17,13 +17,10 @@
  */
 package org.picketlink.identity.federation.core.wstrust;
 
-//rls import org.opensaml.saml.saml2.core.Assertion;
-
 import org.picketlink.common.PicketLinkLogger;
 import org.picketlink.common.PicketLinkLoggerFactory;
 import org.picketlink.common.exceptions.ConfigurationException;
 import org.picketlink.common.exceptions.ParsingException;
-//rls import org.picketlink.common.exceptions.ProcessingException;
 import org.picketlink.common.util.DocumentUtil;
 import org.picketlink.common.util.StringUtil;
 import org.picketlink.common.util.TransformerUtil;

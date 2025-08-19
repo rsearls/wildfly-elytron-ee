@@ -19,10 +19,6 @@ package org.picketlink.common.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
-/** rls
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-**/
 import javax.crypto.spec.PBEParameterSpec;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -35,23 +31,7 @@ import java.security.GeneralSecurityException;
  * @since May 25, 2010
  */
 public class PBEUtils {
-    /** rls
-    public static byte[] encode(byte[] secret, String cipherAlgorithm, SecretKey cipherKey, PBEParameterSpec cipherSpec)
-            throws Exception {
-        Cipher cipher = Cipher.getInstance(cipherAlgorithm);
-        cipher.init(Cipher.ENCRYPT_MODE, cipherKey, cipherSpec);
-        byte[] encoding = cipher.doFinal(secret);
-        return encoding;
-    }
 
-    public static String encode64(byte[] secret, String cipherAlgorithm, SecretKey cipherKey, PBEParameterSpec cipherSpec)
-            throws Exception {
-        byte[] encoding = encode(secret, cipherAlgorithm, cipherKey, cipherSpec);
-        String b64 = Base64.encodeBytes(encoding);
-        return b64;
-    }
-
-     **/
     public static byte[] decode(byte[] secret, String cipherAlgorithm, SecretKey cipherKey, PBEParameterSpec cipherSpec)
             throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance(cipherAlgorithm);
@@ -65,25 +45,4 @@ public class PBEUtils {
         byte[] decode = decode(encoding, cipherAlgorithm, cipherKey, cipherSpec);
         return new String(decode, "UTF-8");
     }
-/** rls
-    public static void main(String[] args) throws Exception {
-        if (args.length != 3) {
-            System.err.println("Encrypt a password" + "Usage: PBEUtils salt count domain-password password"
-                    + " salt : the Salt " + " count : the IterationCount "
-                    + " password : the plaintext password that should be encrypted");
-            throw new RuntimeException(" ERROR: please see format above");
-        }
-
-        byte[] salt = args[0].substring(0, 8).getBytes();
-        int count = Integer.parseInt(args[1]);
-        char[] password = "somearbitrarycrazystringthatdoesnotmatter".toCharArray();
-        byte[] passwordToEncode = args[2].getBytes("UTF-8");
-        PBEParameterSpec cipherSpec = new PBEParameterSpec(salt, count);
-        PBEKeySpec keySpec = new PBEKeySpec(password);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBEwithMD5andDES");
-        SecretKey cipherKey = factory.generateSecret(keySpec);
-        String encodedPassword = encode64(passwordToEncode, "PBEwithMD5andDES", cipherKey, cipherSpec);
-        System.err.println("Encoded password: MASK-" + encodedPassword);
-    }
-    **/
 }

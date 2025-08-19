@@ -34,16 +34,6 @@
 
     <name>WildFly Elytron - Webservice Federation</name>
     <description>Webservice SOAP/SAML interceptors</description>
-<!-- rls
-    <properties>
-        <org.apache.santuario.version>2.1.6</org.apache.santuario.version>
-        <org.apache.cxf.version>4.0.6</org.apache.cxf.version>
-        <javax.xml.bind.version>2.4.0-b180830.0359</javax.xml.bind.version>
-        <org.jboss.spec.javax.xml.ws.version>2.0.0.Final</org.jboss.spec.javax.xml.ws.version>
-        <jakarta.xml.soap.version>3.0.2</jakarta.xml.soap.version>
-        <jakarta.xml.ws.version>4.0.1</jakarta.xml.ws.version>
-    </properties>
-    -->
 
     <dependencies>
         <dependency>

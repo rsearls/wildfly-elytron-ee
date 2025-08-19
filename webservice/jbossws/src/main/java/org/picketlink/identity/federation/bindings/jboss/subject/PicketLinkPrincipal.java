@@ -17,8 +17,6 @@
  */
 package org.picketlink.identity.federation.bindings.jboss.subject;
 
-// rls import org.jboss.security.SimplePrincipal;
-
 import java.io.Serializable;
 import java.security.Principal;
 
@@ -33,8 +31,6 @@ public class PicketLinkPrincipal implements Principal, Serializable {
     private static final long serialVersionUID = 1L;
 
     protected String name;
-
-    //rls private static final String OVERRIDE_EQUALS_BEHAVIOR = "org.picketlink.principal.equals.override";
 
     public PicketLinkPrincipal(String name) {
         this.name = name;
@@ -54,14 +50,7 @@ public class PicketLinkPrincipal implements Principal, Serializable {
         if (!(obj instanceof Principal)) {
             return false;
         }
-/** rls
-        // if the org.picketlink.principal.equals.override system property has been set, narrow the allowed type.
-        if ("true".equals(SecurityActions.getSystemProperty(OVERRIDE_EQUALS_BEHAVIOR, "false"))) {
-            if (!(obj instanceof SimplePrincipal)) {
-                return false;
-            }
-        }
-**/
+
         // compare the principal names.
         String anotherName = ((Principal) obj).getName();
         boolean equals = false;

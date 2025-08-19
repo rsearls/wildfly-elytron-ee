@@ -16,11 +16,11 @@
  *limitations under the License.
  */
 
-package org.picketlink.common;
+package org.wildfly.security.ws.common;
 
 
-import org.picketlink.common.exceptions.ConfigurationException;
-import org.picketlink.common.exceptions.ParsingException;
+import org.wildfly.security.ws.common.exceptions.ConfigurationException;
+import org.wildfly.security.ws.common.exceptions.ParsingException;
 
 import javax.xml.stream.Location;
 import java.security.GeneralSecurityException;

@@ -20,16 +20,16 @@
  *02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.picketlink.common;
+package org.wildfly.security.ws.common;
 
 import org.jboss.logging.Logger;
-import org.picketlink.common.exceptions.ConfigurationException;
-import org.picketlink.common.exceptions.ParsingException;
+import org.wildfly.security.ws.common.exceptions.ConfigurationException;
+import org.wildfly.security.ws.common.exceptions.ParsingException;
 
 import javax.xml.stream.Location;
-import static org.picketlink.common.ErrorCodes.EXPECTED_TAG;
-import static org.picketlink.common.ErrorCodes.REQD_ATTRIBUTE;
-import static org.picketlink.common.ErrorCodes.UNKNOWN_TAG;
+import static org.wildfly.security.ws.common.ErrorCodes.EXPECTED_TAG;
+import static org.wildfly.security.ws.common.ErrorCodes.REQD_ATTRIBUTE;
+import static org.wildfly.security.ws.common.ErrorCodes.UNKNOWN_TAG;
 import java.security.GeneralSecurityException;
 
 /**

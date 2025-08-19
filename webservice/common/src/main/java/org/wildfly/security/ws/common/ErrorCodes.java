@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.picketlink.common;
+package org.wildfly.security.ws.common;
 
 /**
  * Error Codes for PicketLink https://docs.jboss.org/author/display/PLINK/PicketLink+Error+Codes

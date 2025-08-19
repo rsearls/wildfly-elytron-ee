@@ -15,11 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.picketlink.common.util;
+package org.wildfly.security.ws.common.util;
 
-import org.picketlink.common.PicketLinkLogger;
-import org.picketlink.common.PicketLinkLoggerFactory;
-import org.picketlink.common.constants.PicketLinkCommonConstants;
+import org.wildfly.security.ws.common.PicketLinkLogger;
+import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import org.wildfly.security.ws.common.constants.PicketLinkCommonConstants;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;

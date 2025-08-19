@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.picketlink.common;
+package org.wildfly.security.ws.common;
 
 /**
  * <p> Factory class to create {@link PicketLinkLogger} instances. </p> <p> The logger instances are created based on

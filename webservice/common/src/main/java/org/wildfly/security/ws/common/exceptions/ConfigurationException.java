@@ -15,50 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.picketlink.common.exceptions;
+package org.wildfly.security.ws.common.exceptions;
 
-import javax.xml.stream.Location;
-import javax.xml.stream.XMLStreamException;
 import java.security.GeneralSecurityException;
 
 /**
- * General Exception indicating parsing exception
+ * Exception indicating an issue with the configuration
  *
  * @author Anil.Saldhana@redhat.com
  * @since May 22, 2009
  */
-public class ParsingException extends GeneralSecurityException {
+public class ConfigurationException extends GeneralSecurityException {
     private static final long serialVersionUID = 1L;
 
-    private Location location;
-
-    public ParsingException() {
+    public ConfigurationException() {
         super();
     }
 
-    public ParsingException(String message, Throwable cause) {
+    public ConfigurationException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ParsingException(String message) {
+    public ConfigurationException(String message) {
         super(message);
     }
 
-    public ParsingException(Throwable cause) {
+    public ConfigurationException(Throwable cause) {
         super(cause);
-    }
-
-    public ParsingException(XMLStreamException xmle) {
-        super(xmle);
-        location = xmle.getLocation();
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    @Override
-    public String toString() {
-        return "ParsingException [location=" + location + "]" + super.toString();
     }
 }

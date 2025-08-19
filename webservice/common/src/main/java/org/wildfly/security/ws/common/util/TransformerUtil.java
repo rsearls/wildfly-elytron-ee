@@ -15,12 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.picketlink.common.util;
+package org.wildfly.security.ws.common.util;
 
-import org.picketlink.common.PicketLinkLogger;
-import org.picketlink.common.PicketLinkLoggerFactory;
-import org.picketlink.common.constants.GeneralConstants;
-import org.picketlink.common.exceptions.ConfigurationException;
+import org.wildfly.security.ws.common.PicketLinkLogger;
+import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import org.wildfly.security.ws.common.constants.GeneralConstants;
+import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;

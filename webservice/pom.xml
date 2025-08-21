@@ -31,20 +31,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>webservice</artifactId>
-    <!-- rls
-    <packaging>pom</packaging>
-    -->
 
     <name>WildFly Elytron - Webservice</name>
     <description>Elytron SOAP/SAML Webservice support</description>
-<!-- rls
-    <modules>
-        <module>common</module>
-        <module>federation</module>
-        <module>jbossws</module>
-        <module>test</module>
-    </modules>
--->
+
     <properties>
         <version.org.opensaml.opensaml>4.3.2</version.org.opensaml.opensaml>
         <maven.repository.protocol>https</maven.repository.protocol>
@@ -63,16 +53,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.wildfly.security.jakarta</groupId>
-                <artifactId>common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.security.jakarta</groupId>
-                <artifactId>federation</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.jboss.security</groupId>
                 <artifactId>jbossxacml</artifactId>
@@ -143,10 +123,6 @@
         <artifactId>jbossxacml</artifactId>
     </dependency>
         <dependency>
-            <groupId>org.wildfly.security.jakarta</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
         </dependency>
@@ -161,14 +137,6 @@
             <artifactId>wildfly-elytron-auth</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.security.jakarta</groupId>
-            <artifactId>federation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.security.jakarta</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.wildfly.security</groupId>
             <artifactId>wildfly-elytron-auth-server</artifactId>
         </dependency>
@@ -179,12 +147,6 @@
         <dependency>
             <groupId>io.undertow</groupId>
             <artifactId>undertow-servlet</artifactId>
-        </dependency>
-
-        <!-- Jakarta API Dependencies -->
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <!-- Other Dependencies -->
@@ -201,13 +163,8 @@
             <artifactId>jboss-jaxws-api_2.3_spec</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-core</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.santuario</groupId>

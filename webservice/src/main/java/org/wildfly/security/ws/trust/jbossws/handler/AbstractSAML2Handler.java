@@ -21,6 +21,8 @@
  */
 package org.wildfly.security.ws.trust.jbossws.handler;
 
+import static org.wildfly.security.ws.common.ElytronMessages.log;
+
 import org.wildfly.security.ws.common.constants.JBossSAMLURIConstants;
 import org.wildfly.security.ws.common.util.StringUtil;
 import org.wildfly.security.ws.federation.core.saml.v2.util.AssertionUtil;
@@ -82,7 +84,7 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
      * Retrieves the SAML assertion from the SOAP payload and lets invocation go to JAAS for validation.
      */
     protected boolean handleInbound(MessageContext msgContext) {
-        logger.trace("Handling Inbound Message");
+        log.trace("Handling Inbound Message");
 
         if (!isOpenSamlInitialized) {
             init();
@@ -93,7 +95,7 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
         SOAPMessage soapMessage = ctx.getMessage();
 
         if (soapMessage == null) {
-            throw logger.nullValueError("SOAP Message");
+            throw log.nullValueError("SOAP Message");
         }
 
         // retrieve the assertion
@@ -111,15 +113,15 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
                 // Unmarshall the Element into an Assertion object
                 assertion = (Assertion) unmarshaller.unmarshall(assertionElement);
                 if (AssertionUtil.hasExpired(assertion)) {
-                    throw new RuntimeException(logger.samlAssertionExpiredError());
+                    throw new RuntimeException(log.samlAssertionExpiredError());
                 }
             } catch (Exception e) {
-                logger.samlAssertionPasingFailed(e);
+                log.error("SAML Assertion parsing failed", e);
             }
 
             SamlCredential credential = new SamlCredential(assertionElement);
-            if (logger.isTraceEnabled()) {
-                logger.trace("Assertion included in SOAP payload: " + credential.getAssertionAsString());
+            if (log.isTraceEnabled()) {
+                log.trace("Assertion included in SOAP payload: " + credential.getAssertionAsString());
             }
 
             String username = assertion.getSubject().getNameID().getValue();
@@ -134,21 +136,21 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
                     roleKeys.addAll(StringUtil.tokenize(roleKey));
                 }
 
-                logger.trace("Rolekeys to extract roles from the assertion: " + roleKeys);
+                log.trace("Rolekeys to extract roles from the assertion: " + roleKeys);
 
                 List<String> roles = AssertionUtil.getRoles(assertion, roleKeys);
                 if (roles.size() > 0) {
-                    logger.trace("Roles in the assertion: " + roles);
+                    log.trace("Roles in the assertion: " + roles);
 
                     for (String role : roles) {
                         theSubject.getPrincipals().add(new NamePrincipal(role));
                     }
                 } else {
-                    logger.trace("Did not find roles in the assertion");
+                    log.trace("Did not find roles in the assertion");
                 }
             }
         } else {
-            logger.trace("We did not find any assertion");
+            log.trace("We did not find any assertion");
         }
         return true;
     }
@@ -172,7 +174,7 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
      * assertion is then included in the SOAP payload.
      */
     protected boolean handleOutbound(MessageContext msgContext) {
-        logger.trace("Handling Outbound Message");
+        log.trace("Handling Outbound Message");
 
         if (!isOpenSamlInitialized) {
             init();
@@ -191,7 +193,7 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
         }
 
         if (assertion == null) {
-            logger.trace("We did not find any assertion");
+            log.trace("We did not find any assertion");
             return true;
         }
 
@@ -212,7 +214,7 @@ public abstract class AbstractSAML2Handler extends AbstractPicketLinkTrustHandle
             }
             soapHeader.insertBefore(wsse, soapHeader.getFirstChild());
         } catch (Exception e) {
-            logger.error(e);
+            log.error(e);
             return false;
         }
 

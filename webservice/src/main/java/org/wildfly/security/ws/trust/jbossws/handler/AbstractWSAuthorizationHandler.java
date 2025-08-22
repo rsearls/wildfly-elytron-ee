@@ -21,6 +21,8 @@
  */
 package org.wildfly.security.ws.trust.jbossws.handler;
 
+import static org.wildfly.security.ws.common.ElytronMessages.log;
+
 import org.wildfly.security.auth.principal.NamePrincipal;
 
 import org.w3c.dom.Node;
@@ -58,7 +60,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
     @Override
     protected boolean handleInbound(MessageContext msgContext) {
 
-        logger.trace("Handling Inbound Message");
+        log.trace("Handling Inbound Message");
 
         trace(msgContext);
 
@@ -66,7 +68,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
         // Read the jboss-wsse.xml file
         InputStream is = getWSSE(context);
         if (is == null) {
-            throw logger.jbossWSUnableToLoadJBossWSSEConfigError();
+            throw log.jbossWSUnableToLoadJBossWSSEConfigError();
         }
 
         QName portName = (QName) msgContext.get(MessageContext.WSDL_PORT);
@@ -78,7 +80,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
         }
 
         if (portName == null) {
-            throw logger.nullValueError("port name from the message context");
+            throw log.nullValueError("port name from the message context");
         }
 
         if (opName == null) {
@@ -86,7 +88,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
         }
 
         if (opName == null) {
-            throw logger.nullValueError("operation name from the message context");
+            throw log.nullValueError("operation name from the message context");
         }
 
         List<String> roles = null;
@@ -111,7 +113,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
             try {
                 authorizationManager = getAuthorizationManager(msgContext);
             } catch (ConfigurationException e) {
-                logger.authorizationManagerError(e);
+                log.authorizationManagerError(e);
                 throw new RuntimeException(e);
             }
 
@@ -124,9 +126,9 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
                 builder.append(subject).append(":Expected Roles=").append(expectedRoles);
                 SecurityContextCallbackHandler scbh = new SecurityContextCallbackHandler(sc);
                 builder.append("::Actual Roles=").append(authorizationManager.getSubjectRoles(subject, scbh));
-                logger.error(builder.toString());
+                log.error(builder.toString());
 
-                throw logger.jbossWSAuthorizationFailed();
+                throw log.jbossWSAuthorizationFailed();
             }
         }
         **/
@@ -143,7 +145,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
 
     protected InputStream getWSSE(ServletContext context) {
         if (context == null) {
-            throw logger.nullValueError("Servlet Context");
+            throw log.nullValueError("Servlet Context");
         }
 
         InputStream is = context.getResourceAsStream("/WEB-INF/jboss-wsse.xml");
@@ -170,7 +172,7 @@ public abstract class AbstractWSAuthorizationHandler extends AbstractPicketLinkT
             String childName = child.getLocalName();
             return new QName(childNamespace, childName);
         } catch (SOAPException e) {
-            logger.jbossWSErrorGettingOperationName(e);
+            log.error("Exception using backup method to get op name=", e);
         }
         return null;
     }

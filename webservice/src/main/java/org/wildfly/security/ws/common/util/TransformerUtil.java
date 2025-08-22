@@ -17,8 +17,7 @@
  */
 package org.wildfly.security.ws.common.util;
 
-import org.wildfly.security.ws.common.PicketLinkLogger;
-import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import static org.wildfly.security.ws.common.ElytronMessages.log;
 import org.wildfly.security.ws.common.constants.GeneralConstants;
 import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 
@@ -36,8 +35,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
  */
 public class TransformerUtil {
 
-    private static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
-
     private static TransformerFactory transformerFactory;
 
     /**
@@ -52,9 +49,9 @@ public class TransformerUtil {
         try {
             transformer = getTransformerFactory().newTransformer();
         } catch (TransformerConfigurationException e) {
-            throw logger.configurationError(e);
+            throw log.configurationError(e);
         } catch (TransformerFactoryConfigurationError e) {
-            throw logger.configurationError(e);
+            throw log.configurationError(e);
         }
 
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");

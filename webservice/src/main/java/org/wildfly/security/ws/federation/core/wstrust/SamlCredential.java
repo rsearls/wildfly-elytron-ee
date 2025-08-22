@@ -17,8 +17,7 @@
  */
 package org.wildfly.security.ws.federation.core.wstrust;
 
-import org.wildfly.security.ws.common.PicketLinkLogger;
-import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import static org.wildfly.security.ws.common.ElytronMessages.log;
 import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 import org.wildfly.security.ws.common.exceptions.ParsingException;
 import org.wildfly.security.ws.common.util.DocumentUtil;
@@ -46,8 +45,6 @@ import java.security.GeneralSecurityException;
  */
 public final class SamlCredential implements Serializable {
 
-    private static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
-
     private static final long serialVersionUID = -8496414959425288835L;
 
     private static final TransformerFactory TRANSFORMER_FACTORY = TransformerUtil.getTransformerFactory();
@@ -56,14 +53,14 @@ public final class SamlCredential implements Serializable {
 
     public SamlCredential(final Element assertion) {
         if (assertion == null)
-            throw logger.nullArgumentError("assertion");
+            throw log.nullArgumentError("assertion");
 
         this.assertion = SamlCredential.assertionToString(assertion);
     }
 
     public SamlCredential(final String assertion) {
         if (StringUtil.isNullOrEmpty(assertion))
-            throw logger.nullArgumentError("assertion");
+            throw log.nullArgumentError("assertion");
 
         this.assertion = assertion;
     }
@@ -105,15 +102,15 @@ public final class SamlCredential implements Serializable {
             Document document = DocumentUtil.getDocument(assertion);
             return (Element) document.getFirstChild();
         } catch (final ConfigurationException e) {
-            throw logger.processingError(e);
+            throw log.processingError(e);
         } catch (final ParsingException e) {
-            throw logger.processingError(e);
+            throw log.processingError(e);
         }
     }
 
     public static String assertionToString(final Element assertion) {
         if (assertion == null)
-            throw logger.nullArgumentError("assertion");
+            throw log.nullArgumentError("assertion");
 
         try {
             final Transformer transformer = TRANSFORMER_FACTORY.newTransformer();

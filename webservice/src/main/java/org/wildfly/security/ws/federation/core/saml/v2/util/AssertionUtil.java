@@ -21,8 +21,7 @@
  */
 package org.wildfly.security.ws.federation.core.saml.v2.util;
 
-import org.wildfly.security.ws.common.PicketLinkLogger;
-import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import static org.wildfly.security.ws.common.ElytronMessages.log;
 import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 
 import org.opensaml.saml.saml2.core.Assertion;
@@ -47,8 +46,6 @@ import java.util.List;
  */
 public class AssertionUtil {
 
-    private static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
-
     public static boolean hasExpired(Assertion assertion) throws ConfigurationException {
         boolean expiry = false;
 
@@ -60,17 +57,17 @@ public class AssertionUtil {
             Instant notOnOrAfter = conditionsType.getNotOnOrAfter();
 
             if (notBefore != null) {
-                logger.trace("Assertion: " + assertion.getID() + " ::Now=" + now.toString() + " ::notBefore=" + notBefore.toString());
+                log.trace("Assertion: " + assertion.getID() + " ::Now=" + now.toString() + " ::notBefore=" + notBefore.toString());
             }
 
             if (notOnOrAfter != null) {
-                logger.trace("Assertion: " + assertion.getID() + " ::Now=" + now.toString() + " ::notOnOrAfter=" + notOnOrAfter.toString());
+                log.trace("Assertion: " + assertion.getID() + " ::Now=" + now.toString() + " ::notOnOrAfter=" + notOnOrAfter.toString());
             }
 
             expiry = !XMLTimeUtil.isValid(now, notBefore, notOnOrAfter);
 
             if (expiry) {
-                logger.samlAssertionExpired(assertion.getID());
+                log.debug("Assertion has expired with id=" + assertion.getID());
             }
         }
 
@@ -99,7 +96,7 @@ public class AssertionUtil {
                                 Node roleNode = (Node) attrValue;
                                 roles.add(roleNode.getFirstChild().getNodeValue());
                             } else
-                                throw logger.unknownObjectType(attrValue);
+                                throw log.unknownObjectType(attrValue);
                         }
                     }
                 }

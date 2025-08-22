@@ -17,8 +17,7 @@
  */
 package org.wildfly.security.ws.common.util;
 
-import org.wildfly.security.ws.common.PicketLinkLogger;
-import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import static org.wildfly.security.ws.common.ElytronMessages.log;
 import org.wildfly.security.ws.common.constants.PicketLinkCommonConstants;
 
 import javax.crypto.SecretKey;
@@ -40,8 +39,6 @@ import java.util.regex.Pattern;
  * @since Oct 21, 2009
  */
 public class StringUtil {
-
-    private static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
 
     /**
      * Check whether the passed string is null or empty
@@ -89,7 +86,7 @@ public class StringUtil {
      */
     public static String getSystemPropertyAsString(String str) {
         if (str == null)
-            throw logger.nullArgumentError("str");
+            throw log.nullArgumentError("str");
         if (str.contains("${")) {
             Pattern pattern = Pattern.compile("\\$\\{([^}]+)}");
             Matcher matcher = pattern.matcher(str);
@@ -109,7 +106,7 @@ public class StringUtil {
                 }
                 sysPropertyValue = SecurityActions.getSystemProperty(subString, defaultValue);
                 if (sysPropertyValue.isEmpty()) {
-                    throw logger.systemPropertyMissingError(matcher.group(1));
+                    throw log.systemPropertyMissingError(matcher.group(1));
                 }else{
                     // sanitize the value before we use append-and-replace
                     sysPropertyValue = Matcher.quoteReplacement(sysPropertyValue);
@@ -131,7 +128,7 @@ public class StringUtil {
      */
     public static void match(String first, String second) {
         if (first.equals(second) == false)
-            throw logger.notEqualError(first, second);
+            throw log.notEqualError(first, second);
     }
 
     /**

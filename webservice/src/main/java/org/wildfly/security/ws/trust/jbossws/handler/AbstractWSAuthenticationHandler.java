@@ -21,6 +21,8 @@
  */
 package org.wildfly.security.ws.trust.jbossws.handler;
 
+import static org.wildfly.security.ws.common.ElytronMessages.log;
+
 import io.undertow.security.api.SecurityContext;
 import io.undertow.servlet.spec.HttpServletRequestImpl;
 import io.undertow.server.HttpServerExchange;
@@ -43,7 +45,7 @@ public abstract class AbstractWSAuthenticationHandler extends AbstractPicketLink
     @Override
     protected boolean handleInbound(MessageContext msgContext) {
 
-        logger.trace("Handling Inbound Message");
+        log.trace("Handling Inbound Message");
 
         trace(msgContext);
 

@@ -21,8 +21,8 @@
  */
 package org.wildfly.security.ws.trust.jbossws.handler;
 
-import org.wildfly.security.ws.common.PicketLinkLogger;
-import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import static org.wildfly.security.ws.common.ElytronMessages.log;
+
 import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 import org.wildfly.security.ws.common.util.DocumentUtil;
 import org.wildfly.security.ws.trust.jbossws.Constants;
@@ -32,9 +32,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import jakarta.servlet.ServletContext;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.handler.LogicalMessageContext;
@@ -57,8 +54,6 @@ import java.util.Set;
  */
 @SuppressWarnings("rawtypes")
 public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageContext> implements SOAPHandler {
-
-    protected static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
 
     protected static Set<QName> headers;
     private String securityDomainName;
@@ -118,7 +113,7 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
         }
 
         if (this.securityDomainName == null) {
-            throw logger.securityDomainNotFound();
+            throw log.securityDomainNotFound();
         }
 
         return this.securityDomainName;
@@ -133,7 +128,7 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
      */
     private InputStream getJBossWeb(ServletContext context) {
         if (context == null) {
-            throw logger.nullValueError("Servlet Context");
+            throw log.nullValueError("Servlet Context");
         }
 
         return context.getResourceAsStream("/WEB-INF/jboss-web.xml");
@@ -155,13 +150,13 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
     }
 
     protected void trace(MessageContext msgContext) {
-        if (logger.isTraceEnabled()) {
+        if (log.isTraceEnabled()) {
             if (msgContext instanceof SOAPMessageContext) {
                 SOAPMessageContext soapMessageContext = (SOAPMessageContext) msgContext;
-                logger.trace("WSDL_PORT=" + soapMessageContext.get(SOAPMessageContext.WSDL_PORT));
-                logger.trace("WSDL_OPERATION=" + soapMessageContext.get(SOAPMessageContext.WSDL_OPERATION));
-                logger.trace("WSDL_INTERFACE=" + soapMessageContext.get(SOAPMessageContext.WSDL_INTERFACE));
-                logger.trace("WSDL_SERVICE=" + soapMessageContext.get(SOAPMessageContext.WSDL_SERVICE));
+                log.trace("WSDL_PORT=" + soapMessageContext.get(SOAPMessageContext.WSDL_PORT));
+                log.trace("WSDL_OPERATION=" + soapMessageContext.get(SOAPMessageContext.WSDL_OPERATION));
+                log.trace("WSDL_INTERFACE=" + soapMessageContext.get(SOAPMessageContext.WSDL_INTERFACE));
+                log.trace("WSDL_SERVICE=" + soapMessageContext.get(SOAPMessageContext.WSDL_SERVICE));
             }
         }
     }
@@ -211,7 +206,7 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
                     try {
                         assertion = samlCredential.getAssertionAsElement();
                     } catch (ProcessingException e) {
-                        logger.samlAssertionPasingFailed(e);
+                        log.samlAssertionPasingFailed(e);
                     }
                     break;
                 }
@@ -219,15 +214,6 @@ public abstract class AbstractPicketLinkTrustHandler<C extends LogicalMessageCon
         }
         **/
         return assertion;
-    }
-
-    protected Object lookupJNDI(String str) {
-        try {
-            Context context = new InitialContext();
-            return context.lookup(str);
-        } catch (NamingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

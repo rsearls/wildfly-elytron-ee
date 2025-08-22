@@ -17,8 +17,7 @@
  */
 package org.wildfly.security.ws.common.util;
 
-import org.wildfly.security.ws.common.PicketLinkLogger;
-import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import static org.wildfly.security.ws.common.ElytronMessages.log;
 import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 import org.wildfly.security.ws.common.exceptions.ParsingException;
 
@@ -47,7 +46,7 @@ import java.security.GeneralSecurityException;
  */
 public class DocumentUtil {
 
-    private static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
+    //rls private static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
 
     private static DocumentBuilderFactory documentBuilderFactory;
 
@@ -88,11 +87,11 @@ public class DocumentUtil {
             DocumentBuilder builder = factory.newDocumentBuilder();
             return builder.parse(new InputSource(reader));
         } catch (ParserConfigurationException e) {
-            throw logger.configurationError(e);
+            throw log.configurationError(e);
         } catch (SAXException e) {
-            throw logger.parserError(e);
+            throw log.parserError(e.getMessage(), e);
         } catch (IOException e) {
-            throw logger.processingError(e);
+            throw log.processingError(e);
         }
     }
 
@@ -113,11 +112,11 @@ public class DocumentUtil {
             DocumentBuilder builder = factory.newDocumentBuilder();
             return builder.parse(is);
         } catch (ParserConfigurationException e) {
-            throw logger.configurationError(e);
+            throw log.configurationError(e);
         } catch (SAXException e) {
-            throw logger.parserError(e);
+            throw log.parserError(e.getMessage(), e);
         } catch (IOException e) {
-            throw logger.processingError(e);
+            throw log.processingError(e);
         }
     }
 
@@ -172,7 +171,7 @@ public class DocumentUtil {
                     feature = feature_external_parameter_entities;
                     documentBuilderFactory.setFeature(feature, false);
                 } catch (ParserConfigurationException e) {
-                    throw logger.parserFeatureNotSupported(feature);
+                    throw log.parserFeatureNotSupported(feature);
                 }
             } finally {
                 if (tccl_jaxp) {

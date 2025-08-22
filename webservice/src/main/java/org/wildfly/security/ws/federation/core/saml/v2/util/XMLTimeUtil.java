@@ -17,8 +17,7 @@
  */
 package org.wildfly.security.ws.federation.core.saml.v2.util;
 
-import org.wildfly.security.ws.common.PicketLinkLogger;
-import org.wildfly.security.ws.common.PicketLinkLoggerFactory;
+import static org.wildfly.security.ws.common.ElytronMessages.log;
 import org.wildfly.security.ws.common.constants.GeneralConstants;
 import org.wildfly.security.ws.common.exceptions.ConfigurationException;
 import org.wildfly.security.ws.common.exceptions.ParsingException;
@@ -43,8 +42,6 @@ import java.time.ZoneId;
  */
 public class XMLTimeUtil {
 
-    private static final PicketLinkLogger logger = PicketLinkLoggerFactory.getLogger();
-
     /**
      * Add additional time in miliseconds
      *
@@ -62,7 +59,7 @@ public class XMLTimeUtil {
         try {
             duration = newDatatypeFactory().newDuration(milis);
         } catch (DatatypeConfigurationException e) {
-            throw logger.configurationError(e);
+            throw log.configurationError(e);
         }
         newVal.add(duration);
         return newVal;
@@ -80,7 +77,7 @@ public class XMLTimeUtil {
      */
     public static XMLGregorianCalendar subtract(XMLGregorianCalendar value, long milis) throws ConfigurationException {
         if (milis < 0)
-            throw logger.invalidArgumentError("milis should be a positive value");
+            throw log.invalidArgumentError("milis should be a positive value");
         return add(value, -1 * milis);
     }
 
@@ -101,7 +98,7 @@ public class XMLTimeUtil {
         try {
             dtf = newDatatypeFactory();
         } catch (DatatypeConfigurationException e) {
-            throw logger.configurationError(e);
+            throw log.configurationError(e);
         }
 
         GregorianCalendar gc = new GregorianCalendar(tz);
@@ -186,7 +183,7 @@ public static ZoneId getCurrentZoneID() {
      */
     public static Duration parseAsDuration(String timeValue) throws ParsingException {
         if (timeValue == null) {
-            PicketLinkLoggerFactory.getLogger().nullArgumentError("duration time");
+            throw log.nullArgumentError("duration time");
         }
 
         DatatypeFactory factory = null;
@@ -194,7 +191,7 @@ public static ZoneId getCurrentZoneID() {
         try {
             factory = newDatatypeFactory();
         } catch (DatatypeConfigurationException e) {
-            throw logger.parserError(e);
+            throw log.parserError(e.getMessage(), e);
         }
 
         try {
@@ -205,7 +202,7 @@ public static ZoneId getCurrentZoneID() {
                 return factory.newDuration(Long.valueOf(timeValue));
             }
         } catch (Exception e) {
-            throw logger.samlMetaDataFailedToCreateCacheDuration(timeValue);
+            throw log.samlMetaDataFailedToCreateCacheDuration(timeValue);
         }
     }
 
@@ -223,7 +220,7 @@ public static ZoneId getCurrentZoneID() {
         try {
             factory = newDatatypeFactory();
         } catch (DatatypeConfigurationException e) {
-            throw logger.parserError(e);
+            throw log.parserError(e.getMessage(), e);
         }
         return factory.newXMLGregorianCalendar(timeString);
     }
